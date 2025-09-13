@@ -20,3 +20,10 @@ export interface TaskType {
   status: TaskStatusType
   project: string
 }
+
+export type TokenType = string
+
+export interface AuthResponseType {
+  user: UserType
+  token: TokenType
+}
