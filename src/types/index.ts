@@ -40,6 +40,11 @@ export interface UserRegisterFormDataType {
   passwordConfirm: string
 }
 
+export interface NewProjectFormDataType {
+  name: string
+  description: string
+}
+
 export interface AlertMessageType {
   type: "success" | "warning" | "danger"
   message: string

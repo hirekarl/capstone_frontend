@@ -1,8 +1,5 @@
 import { useContext, useState, useEffect } from "react"
 
-import Button from "react-bootstrap/Button"
-import Form from "react-bootstrap/Form"
-
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 import type { UserRegisterFormDataType } from "../types"
 
@@ -75,10 +72,10 @@ export default function RegisterForm() {
   return (
     <>
       <h1 className="text-center">Register</h1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="username-input">Username</Form.Label>
-          <Form.Control
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="username-input">Username</label>
+          <input
             id="username-input"
             name="username"
             type="text"
@@ -88,18 +85,22 @@ export default function RegisterForm() {
             onChange={handleChange}
             value={userRegisterFormData.username}
             className={
-              isDirty ? (!usernameIsValid ? "is-invalid" : "is-valid") : ""
+              isDirty
+                ? !usernameIsValid
+                  ? "form-control is-invalid"
+                  : "form-control is-valid"
+                : "form-control"
             }
           />
           {!usernameIsValid && isDirty && (
-            <Form.Text id="username-help" className="text-danger">
+            <div id="username-help" className="form-text text-danger">
               Please enter a username.
-            </Form.Text>
+            </div>
           )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="email-input">Email</Form.Label>
-          <Form.Control
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email-input">Email</label>
+          <input
             id="email-input"
             name="email"
             type="email"
@@ -109,18 +110,22 @@ export default function RegisterForm() {
             onChange={handleChange}
             value={userRegisterFormData.email}
             className={
-              isDirty ? (!emailIsValid ? "is-invalid" : "is-valid") : ""
+              isDirty
+                ? !emailIsValid
+                  ? "form-control is-invalid"
+                  : "form-control is-valid"
+                : "form-control"
             }
           />
           {!emailIsValid && isDirty && (
-            <Form.Text id="email-help" className="text-danger">
+            <div id="email-help" className="form-text text-danger">
               Please enter a valid email address.
-            </Form.Text>
+            </div>
           )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="password-input">Password</Form.Label>
-          <Form.Control
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password-input">Password</label>
+          <input
             id="password-input"
             name="password"
             type="password"
@@ -130,18 +135,22 @@ export default function RegisterForm() {
             onChange={handleChange}
             value={userRegisterFormData.password}
             className={
-              isDirty ? (!passwordIsValid ? "is-invalid" : "is-valid") : ""
+              isDirty
+                ? !passwordIsValid
+                  ? "form-control is-invalid"
+                  : "form-control is-valid"
+                : "form-control"
             }
           />
           {!passwordIsValid && isDirty && (
-            <Form.Text id="password-help" className="text-danger">
+            <div id="password-help" className="form-text text-danger">
               Password must be at least eight characters.
-            </Form.Text>
+            </div>
           )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="password-confirm-input">Password</Form.Label>
-          <Form.Control
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password-confirm-input">Password (again)</label>
+          <input
             id="password-confirm-input"
             name="passwordConfirm"
             type="password"
@@ -155,19 +164,18 @@ export default function RegisterForm() {
             className={
               isDirty
                 ? !passwordConfirmIsValid
-                  ? "is-invalid"
-                  : "is-valid"
-                : ""
+                  ? "form-control is-invalid"
+                  : "form-control is-valid"
+                : "form-control"
             }
           />
           {!passwordConfirmIsValid && isDirty && (
-            <Form.Text id="password-confirm-help" className="text-danger">
+            <div id="password-confirm-help" className="form-text text-danger">
               Passwords must match.
-            </Form.Text>
+            </div>
           )}
-        </Form.Group>
-        <Button
-          variant="primary"
+        </div>
+        <button
           type="submit"
           disabled={
             !(
@@ -177,11 +185,11 @@ export default function RegisterForm() {
               passwordConfirmIsValid
             )
           }
-          className="w-100"
+          className="btn btn-primary w-100"
         >
           Submit
-        </Button>
-      </Form>
+        </button>
+      </form>
     </>
   )
 }

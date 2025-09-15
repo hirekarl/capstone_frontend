@@ -1,10 +1,6 @@
 import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
-
 import { AuthContext } from "../contexts/AuthContext"
 import type { AuthContextType } from "../contexts/AuthContext"
 
@@ -27,18 +23,13 @@ export default function LoginPage() {
       {alertMessage && (
         <AlertMessage type={alertMessage.type} message={alertMessage.message} />
       )}
-      <Container className="mt-3" fluid>
-        <Row>
-          <Col
-            xs={12}
-            sm={{ span: 8, offset: 2 }}
-            md={{ span: 6, offset: 3 }}
-            lg={{ span: 4, offset: 4 }}
-          >
+      <div className="container-fluid mt-3">
+        <div className="row">
+          <div className="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-6 col-lg-4 offset-lg-4">
             <LoginForm />
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

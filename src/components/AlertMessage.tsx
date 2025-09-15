@@ -1,11 +1,9 @@
-import Alert from "react-bootstrap/Alert"
-
 import { type AlertMessageType } from "../types"
 
 export default function AlertMessage({ type, message }: AlertMessageType) {
   return (
-    <Alert variant={type} dismissible>
+    <div className={`alert alert-${type} alert-dismissible fade show`}>
       {message}
-    </Alert>
+    </div>
   )
 }

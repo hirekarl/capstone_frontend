@@ -1,8 +1,5 @@
 import { useContext, useState, useEffect } from "react"
 
-import Button from "react-bootstrap/Button"
-import Form from "react-bootstrap/Form"
-
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 import type { UserLoginFormDataType } from "../types"
 
@@ -53,10 +50,10 @@ export default function LoginForm() {
   return (
     <>
       <h1 className="text-center">Log In</h1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="email-input">Email</Form.Label>
-          <Form.Control
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="email-input">Email</label>
+          <input
             id="email-input"
             name="email"
             type="email"
@@ -66,18 +63,18 @@ export default function LoginForm() {
             onChange={handleChange}
             value={userLoginFormData.email}
             className={
-              isDirty ? (!emailIsValid ? "is-invalid" : "is-valid") : ""
+              isDirty ? (!emailIsValid ? "form-control is-invalid" : "form-control is-valid") : "form-control"
             }
           />
           {!emailIsValid && isDirty && (
-            <Form.Text id="email-help" className="text-danger">
+            <div id="email-help" className="form-text text-danger">
               Please enter a valid email address.
-            </Form.Text>
+            </div>
           )}
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="password-input">Password</Form.Label>
-          <Form.Control
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password-input">Password</label>
+          <input
             id="password-input"
             name="password"
             type="password"
@@ -87,24 +84,23 @@ export default function LoginForm() {
             onChange={handleChange}
             value={userLoginFormData.password}
             className={
-              isDirty ? (!passwordIsValid ? "is-invalid" : "is-valid") : ""
+              isDirty ? (!passwordIsValid ? "form-control is-invalid" : "form-control is-valid") : "form-control"
             }
           />
           {!passwordIsValid && isDirty && (
-            <Form.Text id="password-help" className="text-danger">
+            <div id="password-help" className="form-text text-danger">
               Password must be at least eight characters.
-            </Form.Text>
+            </div>
           )}
-        </Form.Group>
-        <Button
-          variant="primary"
+        </div>
+        <button
           type="submit"
           disabled={!(emailIsValid && passwordIsValid)}
-          className="w-100"
+          className="btn btn-primary w-100"
         >
           Submit
-        </Button>
-      </Form>
+        </button>
+      </form>
     </>
   )
 }
