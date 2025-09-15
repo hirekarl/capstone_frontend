@@ -69,6 +69,7 @@ export default function ProjectsPage() {
             {/* TODO: Replace the below line with the task below it */}
             <ul>{projectsList}</ul>
             {/* Need to import ProjectList here and pass projects/setProjects as prop */}
+            {/* Will need to get the 201 response from new project created and pass up via setProjects */}
           </div>
         </div>
       </div>
