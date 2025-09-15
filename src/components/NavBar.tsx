@@ -1,9 +1,13 @@
-import { Link, NavLink } from "react-router-dom"
 import { useContext } from "react"
+import { Link, NavLink } from "react-router-dom"
+
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
+
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 const NavBar = () => {
   const { isAuthenticated, logout } = useContext<AuthContextType>(AuthContext)
+  const [userData, _] = useLocalStorage()
 
   const handleLogout = () => {
     if (logout) {
@@ -36,6 +40,13 @@ const NavBar = () => {
     </>
   ) : (
     <>
+      {userData && (
+        <li className="nav-item text-muted">
+          <em>
+            Welcome, <strong>{userData.user.username}</strong>
+          </em>
+        </li>
+      )}
       <li className="nav-item">
         <NavLink
           to="/projects"
@@ -46,7 +57,7 @@ const NavBar = () => {
           Projects
         </NavLink>
       </li>
-      <li className="nav-item d-flex align-items-center">
+      <li className="nav-item">
         <button
           type="button"
           className="btn btn-sm btn-primary"
@@ -76,7 +87,9 @@ const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">{authContent}</ul>
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-lg-center gap-lg-3 gap-1">
+            {authContent}
+          </ul>
         </div>
       </div>
     </nav>
