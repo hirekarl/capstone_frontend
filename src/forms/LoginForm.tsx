@@ -13,10 +13,16 @@ export default function LoginForm() {
   const [userLoginFormData, setUserLoginFormData] =
     useState<UserLoginFormDataType>({ email: "", password: "" })
 
+  const [isDirty, setIsDirty] = useState<boolean>(false)
+
   const [emailIsValid, setEmailIsValid] = useState<boolean>(false)
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isDirty) {
+      setIsDirty(true)
+    }
+
     setUserLoginFormData((prevData) => ({
       ...prevData,
       [event.target.name]: event.target.value,
@@ -35,17 +41,8 @@ export default function LoginForm() {
   }
 
   useEffect(() => {
-    if (userLoginFormData.email.match(emailRegEx)) {
-      setEmailIsValid(true)
-    } else {
-      setEmailIsValid(false)
-    }
-
-    if (userLoginFormData.password.length >= 8) {
-      setPasswordIsValid(true)
-    } else {
-      setPasswordIsValid(false)
-    }
+    setEmailIsValid(userLoginFormData.email.match(emailRegEx) !== null)
+    setPasswordIsValid(userLoginFormData.password.length >= 8)
   }, [userLoginFormData])
 
   return (
@@ -58,12 +55,16 @@ export default function LoginForm() {
             id="email-input"
             name="email"
             type="email"
-            aria-describedby={emailIsValid ? "" : "email-help"}
+            aria-describedby={
+              !emailIsValid && isDirty ? "email-help" : undefined
+            }
             onChange={handleChange}
             value={userLoginFormData.email}
-            className={!emailIsValid ? "is-invalid" : "is-valid"}
+            className={
+              isDirty ? (!emailIsValid ? "is-invalid" : "is-valid") : ""
+            }
           />
-          {!emailIsValid && (
+          {!emailIsValid && isDirty && (
             <Form.Text id="email-help" className="text-danger">
               Please enter a valid email address.
             </Form.Text>
@@ -75,12 +76,16 @@ export default function LoginForm() {
             id="password-input"
             name="password"
             type="password"
-            aria-describedby={passwordIsValid ? "" : "password-help"}
+            aria-describedby={
+              !passwordIsValid && isDirty ? "password-help" : undefined
+            }
             onChange={handleChange}
             value={userLoginFormData.password}
-            className={!passwordIsValid ? "is-invalid" : "is-valid"}
+            className={
+              isDirty ? (!passwordIsValid ? "is-invalid" : "is-valid") : ""
+            }
           />
-          {!passwordIsValid && (
+          {!passwordIsValid && isDirty && (
             <Form.Text id="password-help" className="text-danger">
               Password must be at least eight characters.
             </Form.Text>

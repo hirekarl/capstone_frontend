@@ -18,6 +18,8 @@ export default function RegisterForm() {
       passwordConfirm: "",
     })
 
+  const [isDirty, setIsDirty] = useState<boolean>(false)
+
   const [usernameIsValid, setUsernameIsValid] = useState<boolean>(false)
   const [emailIsValid, setEmailIsValid] = useState<boolean>(false)
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>(false)
@@ -25,6 +27,10 @@ export default function RegisterForm() {
     useState<boolean>(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isDirty) {
+      setIsDirty(true)
+    }
+
     setUserRegisterFormData((prevData) => ({
       ...prevData,
       [event.target.name]: event.target.value,
@@ -50,32 +56,13 @@ export default function RegisterForm() {
   }
 
   useEffect(() => {
-    if (userRegisterFormData.username !== "") {
-      setUsernameIsValid(true)
-    } else {
-      setUsernameIsValid(false)
-    }
-
-    if (userRegisterFormData.email.match(emailRegEx)) {
-      setEmailIsValid(true)
-    } else {
-      setEmailIsValid(false)
-    }
-
-    if (userRegisterFormData.password.length >= 8) {
-      setPasswordIsValid(true)
-    } else {
-      setPasswordIsValid(false)
-    }
-
-    if (
+    setUsernameIsValid(userRegisterFormData.username !== "")
+    setEmailIsValid(userRegisterFormData.email.match(emailRegEx) !== null)
+    setPasswordIsValid(userRegisterFormData.password.length >= 8)
+    setPasswordConfirmIsValid(
       userRegisterFormData.passwordConfirm !== "" &&
-      userRegisterFormData.passwordConfirm === userRegisterFormData.password
-    ) {
-      setPasswordConfirmIsValid(true)
-    } else {
-      setPasswordConfirmIsValid(false)
-    }
+        userRegisterFormData.passwordConfirm === userRegisterFormData.password
+    )
   }, [userRegisterFormData])
 
   return (
@@ -88,12 +75,16 @@ export default function RegisterForm() {
             id="username-input"
             name="username"
             type="text"
-            aria-desdcribedby={usernameIsValid ? "" : "username-help"}
+            aria-describedby={
+              !usernameIsValid && isDirty ? "username-help" : undefined
+            }
             onChange={handleChange}
             value={userRegisterFormData.username}
-            className={!usernameIsValid ? "is-invalid" : "is-valid"}
+            className={
+              isDirty ? (!usernameIsValid ? "is-invalid" : "is-valid") : ""
+            }
           />
-          {!usernameIsValid && (
+          {!usernameIsValid && isDirty && (
             <Form.Text id="username-help" className="text-danger">
               Please enter a username.
             </Form.Text>
@@ -105,12 +96,16 @@ export default function RegisterForm() {
             id="email-input"
             name="email"
             type="email"
-            aria-describedby={emailIsValid ? "" : "email-help"}
+            aria-describedby={
+              !emailIsValid && isDirty ? "email-help" : undefined
+            }
             onChange={handleChange}
             value={userRegisterFormData.email}
-            className={!emailIsValid ? "is-invalid" : "is-valid"}
+            className={
+              isDirty ? (!emailIsValid ? "is-invalid" : "is-valid") : ""
+            }
           />
-          {!emailIsValid && (
+          {!emailIsValid && isDirty && (
             <Form.Text id="email-help" className="text-danger">
               Please enter a valid email address.
             </Form.Text>
@@ -122,12 +117,16 @@ export default function RegisterForm() {
             id="password-input"
             name="password"
             type="password"
-            aria-describedby={passwordIsValid ? "" : "password-help"}
+            aria-describedby={
+              !passwordIsValid && isDirty ? "password-help" : undefined
+            }
             onChange={handleChange}
             value={userRegisterFormData.password}
-            className={!passwordIsValid ? "is-invalid" : "is-valid"}
+            className={
+              isDirty ? (!passwordIsValid ? "is-invalid" : "is-valid") : ""
+            }
           />
-          {!passwordIsValid && (
+          {!passwordIsValid && isDirty && (
             <Form.Text id="password-help" className="text-danger">
               Password must be at least eight characters.
             </Form.Text>
@@ -139,12 +138,22 @@ export default function RegisterForm() {
             id="password-confirm-input"
             name="passwordConfirm"
             type="password"
-            aria-describedby={passwordIsValid ? "" : "password-confirm-help"}
+            aria-describedby={
+              !passwordConfirmIsValid && isDirty
+                ? "password-confirm-help"
+                : undefined
+            }
             onChange={handleChange}
             value={userRegisterFormData.passwordConfirm}
-            className={!passwordConfirmIsValid ? "is-invalid" : "is-valid"}
+            className={
+              isDirty
+                ? !passwordConfirmIsValid
+                  ? "is-invalid"
+                  : "is-valid"
+                : ""
+            }
           />
-          {!passwordConfirmIsValid && (
+          {!passwordConfirmIsValid && isDirty && (
             <Form.Text id="password-confirm-help" className="text-danger">
               Passwords must match.
             </Form.Text>
