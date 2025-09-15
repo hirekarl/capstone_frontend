@@ -9,9 +9,11 @@ import { AuthContext } from "../contexts/AuthContext"
 import type { AuthContextType } from "../contexts/AuthContext"
 
 import LoginForm from "../forms/LoginForm"
+import AlertMessage from "../components/AlertMessage"
 
 export default function LoginPage() {
-  const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
+  const { isAuthenticated, alertMessage } =
+    useContext<AuthContextType>(AuthContext)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -21,17 +23,22 @@ export default function LoginPage() {
   }, [isAuthenticated, navigate])
 
   return (
-    <Container className="mt-3" fluid>
-      <Row>
-        <Col
-          xs={12}
-          sm={{ span: 8, offset: 2 }}
-          md={{ span: 6, offset: 3 }}
-          lg={{ span: 4, offset: 4 }}
-        >
-          <LoginForm />
-        </Col>
-      </Row>
-    </Container>
+    <>
+      {alertMessage && (
+        <AlertMessage type={alertMessage.type} message={alertMessage.message} />
+      )}
+      <Container className="mt-3" fluid>
+        <Row>
+          <Col
+            xs={12}
+            sm={{ span: 8, offset: 2 }}
+            md={{ span: 6, offset: 3 }}
+            lg={{ span: 4, offset: 4 }}
+          >
+            <LoginForm />
+          </Col>
+        </Row>
+      </Container>
+    </>
   )
 }

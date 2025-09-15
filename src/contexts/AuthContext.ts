@@ -1,24 +1,28 @@
 import { createContext } from "react"
 
-import type { UserLoginFormDataType, UserRegisterFormDataType } from "../types"
+import type {
+  UserLoginFormDataType,
+  UserRegisterFormDataType,
+  AlertMessageType,
+} from "../types"
 
 export interface AuthContextType {
   isAuthenticated: boolean
-  login: (({ email, password }: UserLoginFormDataType) => void) | null
-  register:
-    | (({
-        username,
-        email,
-        password,
-        passwordConfirm,
-      }: UserRegisterFormDataType) => void)
-    | null
-  logout: (() => void) | null
+  login: ({ email, password }: UserLoginFormDataType) => Promise<void>
+  register: ({
+    username,
+    email,
+    password,
+    passwordConfirm,
+  }: UserRegisterFormDataType) => Promise<void>
+  logout: () => void
+  alertMessage: AlertMessageType | null
 }
 
 export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  login: null,
-  register: null,
-  logout: null,
+  login: async () => {},
+  register: async () => {},
+  logout: () => {},
+  alertMessage: null
 })

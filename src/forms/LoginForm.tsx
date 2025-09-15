@@ -37,6 +37,11 @@ export default function LoginForm() {
         email: userLoginFormData.email,
         password: userLoginFormData.password,
       })
+      setUserLoginFormData({
+        email: "",
+        password: "",
+      })
+      setIsDirty(false)
     }
   }
 

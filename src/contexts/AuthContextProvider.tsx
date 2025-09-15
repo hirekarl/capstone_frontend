@@ -9,6 +9,7 @@ import type {
   AuthResponseType,
   UserLoginFormDataType,
   UserRegisterFormDataType,
+  AlertMessageType,
 } from "../types"
 
 const VITE_ENDPOINT_BASE_URL = import.meta.env.VITE_ENDPOINT_BASE_URL
@@ -16,6 +17,9 @@ const VITE_ENDPOINT_BASE_URL = import.meta.env.VITE_ENDPOINT_BASE_URL
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useLocalStorage()
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!userData)
+  const [alertMessage, setAlertMessage] = useState<AlertMessageType | null>(
+    null
+  )
 
   const navigate = useNavigate()
 
@@ -31,12 +35,24 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       .then((response: AxiosResponse) => {
         setUserData(response.data as AuthResponseType)
         setIsAuthenticated(true)
+        setAlertMessage(null)
         navigate("/projects")
       })
-      .catch((_error) => {
-        console.error("There was a problem with login.")
+      .catch((error) => {
+        console.error("There was a problem with login:", error)
         setUserData(null)
         setIsAuthenticated(false)
+        if (error.response) {
+          setAlertMessage({
+            type: "danger",
+            message: `Couldn't log in: ${error.response.data.message}`,
+          })
+        } else {
+          setAlertMessage({
+            type: "danger",
+            message: "There was a problem logging you in.",
+          })
+        }
         navigate("/login")
       })
   }
@@ -55,12 +71,24 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       .then((response: AxiosResponse) => {
         setUserData(response.data as AuthResponseType)
         setIsAuthenticated(true)
+        setAlertMessage(null)
         navigate("/projects")
       })
-      .catch((_error) => {
-        console.error("There was a problem with user registration.")
+      .catch((error) => {
+        console.error("There was a problem with user registration:", error)
         setUserData(null)
         setIsAuthenticated(false)
+        if (error.response) {
+          setAlertMessage({
+            type: "danger",
+            message: `Couldn't register user: ${error.response.data.message}`,
+          })
+        } else {
+          setAlertMessage({
+            type: "danger",
+            message: "Couldn't register user.",
+          })
+        }
         navigate("/register")
       })
   }
@@ -68,11 +96,14 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const logout = (): void => {
     setUserData(null)
     setIsAuthenticated(false)
+    setAlertMessage(null)
     navigate("/login")
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, login, register, logout, alertMessage }}
+    >
       {children}
     </AuthContext.Provider>
   )

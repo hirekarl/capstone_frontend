@@ -39,3 +39,8 @@ export interface UserRegisterFormDataType {
   password: string
   passwordConfirm: string
 }
+
+export interface AlertMessageType {
+  type: "success" | "warning" | "danger"
+  message: string
+}

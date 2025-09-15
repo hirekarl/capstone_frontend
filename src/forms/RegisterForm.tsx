@@ -52,6 +52,13 @@ export default function RegisterForm() {
         password: userRegisterFormData.password,
         passwordConfirm: userRegisterFormData.passwordConfirm,
       })
+      setUserRegisterFormData({
+        username: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+      })
+      setIsDirty(false)
     }
   }
 
