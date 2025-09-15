@@ -15,9 +15,9 @@ import RegisterPage from "./pages/RegisterPage"
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
-      <div className="flex-grow-1">
-        <AuthContextProvider>
-          <NavBar />
+      <AuthContextProvider>
+        <NavBar />
+        <div className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Navigate to="/projects" replace />} />
             <Route path="/login" element={<LoginPage />} />
@@ -28,9 +28,9 @@ function App() {
               element={<ProjectDetailPage />}
             />
           </Routes>
-          <Footer />
-        </AuthContextProvider>
-      </div>
+        </div>
+        <Footer />
+      </AuthContextProvider>
     </div>
   )
 }
