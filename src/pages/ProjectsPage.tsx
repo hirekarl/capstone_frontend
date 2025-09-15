@@ -41,7 +41,7 @@ export default function ProjectsPage() {
           )
           setProjects(response.data)
         } catch (error) {
-          console.error(error)
+          console.error("Couldn't fetch projects:", error)
           setProjects(null)
         }
       }
