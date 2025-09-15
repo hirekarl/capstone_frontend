@@ -28,12 +28,12 @@ export interface AuthResponseType {
   token: TokenType
 }
 
-export interface UserLoginFormData {
+export interface UserLoginFormDataType {
   email: string
   password: string
 }
 
-export interface UserRegisterFormData {
+export interface UserRegisterFormDataType {
   username: string
   email: string
   password: string

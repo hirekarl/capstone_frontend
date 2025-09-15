@@ -1,17 +1,17 @@
 import { createContext } from "react"
 
-import type { UserLoginFormData, UserRegisterFormData } from "../types"
+import type { UserLoginFormDataType, UserRegisterFormDataType } from "../types"
 
 export interface AuthContextType {
   isAuthenticated: boolean
-  login: (({ email, password }: UserLoginFormData) => void) | null
+  login: (({ email, password }: UserLoginFormDataType) => void) | null
   register:
     | (({
         username,
         email,
         password,
         passwordConfirm,
-      }: UserRegisterFormData) => void)
+      }: UserRegisterFormDataType) => void)
     | null
   logout: (() => void) | null
 }

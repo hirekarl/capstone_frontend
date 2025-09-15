@@ -7,8 +7,8 @@ import { useLocalStorage } from "../hooks/useLocalStorage"
 
 import type {
   AuthResponseType,
-  UserLoginFormData,
-  UserRegisterFormData,
+  UserLoginFormDataType,
+  UserRegisterFormDataType,
 } from "../types"
 
 const VITE_ENDPOINT_BASE_URL = import.meta.env.VITE_ENDPOINT_BASE_URL
@@ -22,7 +22,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const login = async ({
     email,
     password,
-  }: UserLoginFormData): Promise<void> => {
+  }: UserLoginFormDataType): Promise<void> => {
     axios
       .post(`${VITE_ENDPOINT_BASE_URL}/users/login`, {
         email: email,
@@ -45,7 +45,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     username,
     email,
     password,
-  }: UserRegisterFormData): Promise<void> => {
+  }: UserRegisterFormDataType): Promise<void> => {
     axios
       .post(`${VITE_ENDPOINT_BASE_URL}/users/register`, {
         username: username,
