@@ -1,6 +1,3 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-import "./App.css"
-
 import { Navigate, Routes, Route } from "react-router-dom"
 
 import AuthContextProvider from "./contexts/AuthContextProvider"
