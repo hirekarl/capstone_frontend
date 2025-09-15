@@ -86,7 +86,6 @@ export default function NewProjectForm() {
 
   return (
     <>
-      <h2>Add New Project</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name-input" className="form-label">
