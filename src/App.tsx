@@ -10,6 +10,7 @@ import ProjectsPage from "./pages/ProjectsPage"
 import ProjectDetailPage from "./pages/ProjectDetailPage"
 import LoginPage from "./pages/LoginPage"
 import Footer from "./components/Footer"
+import RegisterPage from "./pages/RegisterPage"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/projects" replace />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route
               path="/projects/:projectId"
