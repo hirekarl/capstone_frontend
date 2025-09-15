@@ -27,3 +27,15 @@ export interface AuthResponseType {
   user: UserType
   token: TokenType
 }
+
+export interface UserLoginFormData {
+  email: string
+  password: string
+}
+
+export interface UserRegisterFormData {
+  username: string
+  email: string
+  password: string
+  passwordConfirm: string
+}
