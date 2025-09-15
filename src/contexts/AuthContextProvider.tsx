@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
+
 import axios, { type AxiosResponse } from "axios"
 
 import { AuthContext } from "./AuthContext"
@@ -12,7 +13,7 @@ import type {
   AlertMessageType,
 } from "../types"
 
-const VITE_ENDPOINT_BASE_URL = import.meta.env.VITE_ENDPOINT_BASE_URL
+import { VITE_ENDPOINT_BASE_URL } from "../utils"
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useLocalStorage()
