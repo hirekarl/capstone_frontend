@@ -35,15 +35,27 @@ const NavBar = () => {
       </li>
     </>
   ) : (
-    <li className="nav-item d-flex align-items-center">
-      <button
-        type="button"
-        className="btn btn-sm btn-primary"
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
-    </li>
+    <>
+      <li className="nav-item">
+        <NavLink
+          to="/projects"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          Projects
+        </NavLink>
+      </li>
+      <li className="nav-item d-flex align-items-center">
+        <button
+          type="button"
+          className="btn btn-sm btn-primary"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+      </li>
+    </>
   )
 
   return (
@@ -64,19 +76,7 @@ const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink
-                to="/projects"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-              >
-                Projects
-              </NavLink>
-            </li>
-            {authContent}
-          </ul>
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">{authContent}</ul>
         </div>
       </div>
     </nav>
