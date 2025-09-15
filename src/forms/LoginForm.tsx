@@ -61,6 +61,7 @@ export default function LoginForm() {
             aria-describedby={emailIsValid ? "" : "email-help"}
             onChange={handleChange}
             value={userLoginFormData.email}
+            className={!emailIsValid ? "is-invalid" : "is-valid"}
           />
           {!emailIsValid && (
             <Form.Text id="email-help" className="text-danger">
@@ -77,6 +78,7 @@ export default function LoginForm() {
             aria-describedby={passwordIsValid ? "" : "password-help"}
             onChange={handleChange}
             value={userLoginFormData.password}
+            className={!passwordIsValid ? "is-invalid" : "is-valid"}
           />
           {!passwordIsValid && (
             <Form.Text id="password-help" className="text-danger">

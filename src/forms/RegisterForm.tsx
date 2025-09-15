@@ -91,7 +91,7 @@ export default function RegisterForm() {
             aria-desdcribedby={usernameIsValid ? "" : "username-help"}
             onChange={handleChange}
             value={userRegisterFormData.username}
-            className={!usernameIsValid ? "is-invalid" : ""}
+            className={!usernameIsValid ? "is-invalid" : "is-valid"}
           />
           {!usernameIsValid && (
             <Form.Text id="username-help" className="text-danger">
@@ -108,7 +108,7 @@ export default function RegisterForm() {
             aria-describedby={emailIsValid ? "" : "email-help"}
             onChange={handleChange}
             value={userRegisterFormData.email}
-            className={!emailIsValid ? "is-invalid" : ""}
+            className={!emailIsValid ? "is-invalid" : "is-valid"}
           />
           {!emailIsValid && (
             <Form.Text id="email-help" className="text-danger">
@@ -125,7 +125,7 @@ export default function RegisterForm() {
             aria-describedby={passwordIsValid ? "" : "password-help"}
             onChange={handleChange}
             value={userRegisterFormData.password}
-            className={!passwordIsValid ? "is-invalid" : ""}
+            className={!passwordIsValid ? "is-invalid" : "is-valid"}
           />
           {!passwordIsValid && (
             <Form.Text id="password-help" className="text-danger">
@@ -142,7 +142,7 @@ export default function RegisterForm() {
             aria-describedby={passwordIsValid ? "" : "password-confirm-help"}
             onChange={handleChange}
             value={userRegisterFormData.passwordConfirm}
-            className={!passwordConfirmIsValid ? "is-invalid" : ""}
+            className={!passwordConfirmIsValid ? "is-invalid" : "is-valid"}
           />
           {!passwordConfirmIsValid && (
             <Form.Text id="password-confirm-help" className="text-danger">
