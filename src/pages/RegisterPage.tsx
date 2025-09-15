@@ -26,6 +26,7 @@ export default function RegisterPage() {
       <div className="container-fluid mt-3">
         <div className="row">
           <div className="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <h1 className="text-center">Register</h1>
             <RegisterForm />
           </div>
         </div>

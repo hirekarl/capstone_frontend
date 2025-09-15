@@ -48,59 +48,62 @@ export default function LoginForm() {
   }, [userLoginFormData])
 
   return (
-    <>
-      <h1 className="text-center">Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="email-input">Email</label>
-          <input
-            id="email-input"
-            name="email"
-            type="email"
-            aria-describedby={
-              !emailIsValid && isDirty ? "email-help" : undefined
-            }
-            onChange={handleChange}
-            value={userLoginFormData.email}
-            className={
-              isDirty ? (!emailIsValid ? "form-control is-invalid" : "form-control is-valid") : "form-control"
-            }
-          />
-          {!emailIsValid && isDirty && (
-            <div id="email-help" className="form-text text-danger">
-              Please enter a valid email address.
-            </div>
-          )}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password-input">Password</label>
-          <input
-            id="password-input"
-            name="password"
-            type="password"
-            aria-describedby={
-              !passwordIsValid && isDirty ? "password-help" : undefined
-            }
-            onChange={handleChange}
-            value={userLoginFormData.password}
-            className={
-              isDirty ? (!passwordIsValid ? "form-control is-invalid" : "form-control is-valid") : "form-control"
-            }
-          />
-          {!passwordIsValid && isDirty && (
-            <div id="password-help" className="form-text text-danger">
-              Password must be at least eight characters.
-            </div>
-          )}
-        </div>
-        <button
-          type="submit"
-          disabled={!(emailIsValid && passwordIsValid)}
-          className="btn btn-primary w-100"
-        >
-          Submit
-        </button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <div className="mb-3">
+        <label htmlFor="email-input">Email</label>
+        <input
+          id="email-input"
+          name="email"
+          type="email"
+          aria-describedby={!emailIsValid && isDirty ? "email-help" : undefined}
+          onChange={handleChange}
+          value={userLoginFormData.email}
+          className={
+            isDirty
+              ? !emailIsValid
+                ? "form-control is-invalid"
+                : "form-control is-valid"
+              : "form-control"
+          }
+        />
+        {!emailIsValid && isDirty && (
+          <div id="email-help" className="form-text text-danger">
+            Please enter a valid email address.
+          </div>
+        )}
+      </div>
+      <div className="mb-3">
+        <label htmlFor="password-input">Password</label>
+        <input
+          id="password-input"
+          name="password"
+          type="password"
+          aria-describedby={
+            !passwordIsValid && isDirty ? "password-help" : undefined
+          }
+          onChange={handleChange}
+          value={userLoginFormData.password}
+          className={
+            isDirty
+              ? !passwordIsValid
+                ? "form-control is-invalid"
+                : "form-control is-valid"
+              : "form-control"
+          }
+        />
+        {!passwordIsValid && isDirty && (
+          <div id="password-help" className="form-text text-danger">
+            Password must be at least eight characters.
+          </div>
+        )}
+      </div>
+      <button
+        type="submit"
+        disabled={!(emailIsValid && passwordIsValid)}
+        className="btn btn-primary w-100"
+      >
+        Submit
+      </button>
+    </form>
   )
 }
