@@ -45,7 +45,6 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     username,
     email,
     password,
-    passwordConfirm,
   }: UserRegisterFormData): Promise<void> => {
     axios
       .post(`${VITE_ENDPOINT_BASE_URL}/users/register`, {
