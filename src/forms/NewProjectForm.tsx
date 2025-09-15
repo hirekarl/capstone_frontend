@@ -7,8 +7,7 @@ import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 import type { NewProjectFormDataType } from "../types"
 
 import { useLocalStorage } from "../hooks/useLocalStorage"
-
-const VITE_ENDPOINT_BASE_URL = import.meta.env.VITE_ENDPOINT_BASE_URL
+import { VITE_ENDPOINT_BASE_URL } from "../utils"
 
 export default function NewProjectForm() {
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
