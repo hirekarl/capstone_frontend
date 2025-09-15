@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 import Container from "react-bootstrap/Container"
@@ -14,9 +14,11 @@ export default function LoginPage() {
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
   const navigate = useNavigate()
 
-  if (isAuthenticated) {
-    navigate("/projects")
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/projects")
+    }
+  }, [isAuthenticated, navigate])
 
   return (
     <Container className="mt-3" fluid>
