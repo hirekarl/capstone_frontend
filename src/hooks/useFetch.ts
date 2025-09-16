@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import axios from "axios"
 
 import type { AuthResponseType, ProjectType, TaskType } from "../types"
+import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 
 import { useLocalStorage } from "./useLocalStorage"
 
@@ -26,6 +28,16 @@ export const useFetch = (
   >(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
+
+  const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login")
+    }
+  }, [])
 
   const url = `${VITE_ENDPOINT_BASE_URL}/${endpoint}`
   const config = {
