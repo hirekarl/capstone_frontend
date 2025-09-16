@@ -1,15 +1,13 @@
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import axios from "axios"
-
 import { useLocalStorage } from "../hooks/useLocalStorage"
+import { getAllProjects } from "../api/apiController"
+
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 
 import NewProjectForm from "../forms/NewProjectForm"
 import { type ProjectType } from "../types"
-
-import { VITE_ENDPOINT_BASE_URL } from "../utils"
 
 export default function ProjectsPage() {
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
@@ -21,36 +19,34 @@ export default function ProjectsPage() {
     }
   }, [isAuthenticated, navigate])
 
-  const [userData, _setUserData] = useLocalStorage()
+  const [userData] = useLocalStorage()
   const token = userData?.token
 
   const [projects, setProjects] = useState<ProjectType[] | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchProjects = async () => {
-      if (token) {
-        try {
-          const response = await axios.get(
-            `${VITE_ENDPOINT_BASE_URL}/projects`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            }
-          )
-          setProjects(response.data)
-        } catch (error) {
-          console.error("Couldn't fetch projects:", error)
-          setProjects(null)
+      setLoading(true)
+      try {
+        if (token) {
+          const fetchedProjects = await getAllProjects(token)
+          setProjects(fetchedProjects)
         }
+      } catch (error) {
+        setError(String(error))
+        setProjects(null)
+      } finally {
+        setLoading(false)
       }
     }
 
-    fetchProjects()
-  }, [token])
+    if (isAuthenticated) {
+      fetchProjects()
+    }
+  }, [isAuthenticated, token])
 
-  // TODO: Replace the below
   const projectsList = projects?.map((project) => (
     <li key={project._id}>{project.name}</li>
   ))
@@ -66,10 +62,9 @@ export default function ProjectsPage() {
           </div>
           <div className="col-xs-12 col-lg-6">
             <h2 className="mb-3">Existing Projects</h2>
-            {/* TODO: Replace the below line with the task below it */}
-            <ul>{projectsList}</ul>
-            {/* Need to import ProjectList here and pass projects/setProjects as prop */}
-            {/* Will need to get the 201 response from new project created and pass up via setProjects */}
+            {loading && <p>Loading projects...</p>}
+            {error && <p>Error: {error}</p>}
+            {!loading && !error && projectsList}
           </div>
         </div>
       </div>

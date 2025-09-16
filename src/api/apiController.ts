@@ -1,87 +1,138 @@
-import { useFetch } from "../hooks/useFetch"
-
+import axios from "axios"
 import type { NewProjectFormDataType, NewTaskFormDataType } from "../types"
+import { VITE_ENDPOINT_BASE_URL } from "../utils"
 
-export const getAllProjects = async () => {
-  const { data, loading, error } = useFetch("get", "projects")
-  return { data, loading, error }
+const apiClient = axios.create({
+  baseURL: VITE_ENDPOINT_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
+
+export const getAllProjects = async (token: string) => {
+  const response = await apiClient.get("projects", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
 }
 
 export const createNewProject = async (
+  token: string,
   newProjectFormData: NewProjectFormDataType
 ) => {
-  const { data, loading, error } = useFetch(
-    "post",
-    "projects",
-    newProjectFormData
-  )
-  return { data, loading, error }
+  const response = await apiClient.post("projects", newProjectFormData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
 }
 
-export const getProject = async (projectId: string) => {
-  const { data, loading, error } = useFetch("get", `projects/${projectId}`)
-  return { data, loading, error }
+export const getProject = async (token: string, projectId: string) => {
+  const response = await apiClient.get(`projects/${projectId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
 }
 
-export const editProject = async (projectId: string, updateData: object) => {
-  const { data, loading, error } = useFetch(
-    "patch",
-    `projects/${projectId}`,
-    updateData
-  )
-  return { data, loading, error }
+export const editProject = async (
+  token: string,
+  projectId: string,
+  updateData: object
+) => {
+  const response = await apiClient.patch(`projects/${projectId}`, updateData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
 }
 
-export const deleteProject = async (projectId: string) => {
-  const { data, loading, error } = useFetch("delete", `projects/${projectId}`)
-  return { data, loading, error }
+export const deleteProject = async (token: string, projectId: string) => {
+  const response = await apiClient.delete(`projects/${projectId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
 }
 
-export const getProjectTasks = async (projectId: string) => {
-  const { data, loading, error } = useFetch(
-    "get",
-    `projects/${projectId}/tasks`
-  )
-  return { data, loading, error }
+export const getProjectTasks = async (token: string, projectId: string) => {
+  const response = await apiClient.get(`projects/${projectId}/tasks`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return response.data
 }
 
 export const createNewTask = async (
+  token: string,
   projectId: string,
   newTaskFormData: NewTaskFormDataType
 ) => {
-  const { data, loading, error } = useFetch(
-    "post",
+  const response = await apiClient.post(
     `projects/${projectId}/tasks`,
-    newTaskFormData
+    newTaskFormData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   )
-  return { data, loading, error }
+  return response.data
 }
 
-export const getTask = async (projectId: string, taskId: string) => {
-  const { data, loading, error } = useFetch(
-    "get",
-    `projects/${projectId}/tasks/${taskId}`
+export const getTask = async (
+  token: string,
+  projectId: string,
+  taskId: string
+) => {
+  const response = await apiClient.get(
+    `projects/${projectId}/tasks/${taskId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   )
-  return { data, loading, error }
+  return response.data
 }
 
 export const editTask = async (
+  token: string,
   projectId: string,
   taskId: string,
   updateData: object
 ) => {
-  const { data, loading, error } = useFetch(
-    "patch",
+  const response = await apiClient.patch(
     `projects/${projectId}/tasks/${taskId}`,
-    updateData
+    updateData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   )
-  return { data, loading, error }
+  return response.data
 }
 
-export const deleteTask = async (projectId: string, taskId: string) => {
-  const { data, loading, error } = useFetch(
-    "delete",
-    `projects/${projectId}/tasks/${taskId}`
+export const deleteTask = async (
+  token: string,
+  projectId: string,
+  taskId: string
+) => {
+  const response = await apiClient.delete(
+    `projects/${projectId}/tasks/${taskId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   )
-  return { data, error, loading }
+  return response.data
 }
