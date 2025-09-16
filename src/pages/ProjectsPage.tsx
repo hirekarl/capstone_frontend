@@ -9,6 +9,8 @@ import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 import NewProjectForm from "../forms/NewProjectForm"
 import { type ProjectType } from "../types"
 
+import ProjectList from "../components/ProjectList"
+
 export default function ProjectsPage() {
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
   const navigate = useNavigate()
@@ -47,10 +49,6 @@ export default function ProjectsPage() {
     }
   }, [isAuthenticated, token])
 
-  const projectsList = projects?.map((project) => (
-    <li key={project._id}>{project.name}</li>
-  ))
-
   return (
     <>
       <div className="container-fluid mt-3">
@@ -64,7 +62,7 @@ export default function ProjectsPage() {
             <h2 className="mb-3">Existing Projects</h2>
             {loading && <p>Loading projects...</p>}
             {error && <p>Error: {error}</p>}
-            {!loading && !error && projectsList}
+            {!loading && !error && projects && <ProjectList projects={projects} />}
           </div>
         </div>
       </div>
