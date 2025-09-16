@@ -11,6 +11,11 @@ export interface ProjectType {
   owner: string
 }
 
+export interface NewProjectFormDataType {
+  name: string
+  description: string
+}
+
 export type TaskStatusType = "To Do" | "In Progress" | "Done"
 
 export interface TaskType {
@@ -19,6 +24,12 @@ export interface TaskType {
   description: string
   status: TaskStatusType
   project: string
+}
+
+export interface NewTaskFormDataType {
+  title: string
+  description: string
+  status?: TaskStatusType
 }
 
 export type TokenType = string
@@ -38,11 +49,6 @@ export interface UserRegisterFormDataType {
   email: string
   password: string
   passwordConfirm: string
-}
-
-export interface NewProjectFormDataType {
-  name: string
-  description: string
 }
 
 export interface AlertMessageType {
