@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react"
+import { useEffect, useState, type ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 
 import axios, { type AxiosResponse } from "axios"
@@ -101,9 +101,47 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     navigate("/login")
   }
 
+  const validateToken = async (): Promise<void> => {
+    if (userData?.token) {
+      try {
+        const response = await axios.get(
+          `${VITE_ENDPOINT_BASE_URL}/users/validate`,
+          {
+            headers: {
+              Authorization: `Bearer ${userData.token}`,
+            },
+          }
+        )
+        if (response.status === 200) {
+          setIsAuthenticated(true)
+        }
+      } catch (error) {
+        console.error("Token validation failed:", error)
+        setAlertMessage({
+          type: "danger",
+          message: "Token validation failed. Please log in again.",
+        })
+        logout()
+      }
+    } else {
+      logout()
+    }
+  }
+
+  useEffect(() => {
+    validateToken()
+  }, [])
+
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, register, logout, alertMessage }}
+      value={{
+        isAuthenticated,
+        login,
+        register,
+        logout,
+        validateToken,
+        alertMessage,
+      }}
     >
       {children}
     </AuthContext.Provider>

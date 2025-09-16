@@ -16,6 +16,7 @@ export interface AuthContextType {
     passwordConfirm,
   }: UserRegisterFormDataType) => Promise<void>
   logout: () => void
+  validateToken: () => Promise<void>
   alertMessage: AlertMessageType | null
 }
 
@@ -24,5 +25,6 @@ export const AuthContext = createContext<AuthContextType>({
   login: async () => {},
   register: async () => {},
   logout: () => {},
+  validateToken: async () => {},
   alertMessage: null,
 })
