@@ -1,4 +1,4 @@
-import ProjectCard from "./Cards/ProjectCard"
+import ProjectCard from "./Cards/ProjectCard/ProjectCard"
 
 import type { ProjectType } from "../types"
 import type { Dispatch, SetStateAction } from "react"
@@ -15,7 +15,7 @@ export default function ProjectList({
   const projectCards = projects?.map((project) => (
     <ProjectCard
       key={project._id}
-      data={project}
+      project={project}
       setNeedsReload={setNeedsReload}
     />
   ))

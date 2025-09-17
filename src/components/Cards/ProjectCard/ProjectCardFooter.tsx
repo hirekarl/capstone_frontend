@@ -1,13 +1,13 @@
 import type { MouseEvent } from "react"
 
-import DetailButton from "./CardButtons/DetailButton"
-import EditButton from "./CardButtons/EditButton"
-import DeleteButton from "./CardButtons/DeleteButton"
+import DetailButton from "../CardButtons/DetailButton"
+import EditButton from "../CardButtons/EditButton"
+import DeleteButton from "../CardButtons/DeleteButton"
 
 export interface CardFooterProps {
-  handleDetailButtonClick: (event: MouseEvent) => void
-  handleEditButtonClick: (event: MouseEvent) => void
-  handleDeleteButtonClick: (event: MouseEvent) => void
+  handleDetailButtonClick: () => void
+  handleEditButtonClick: () => void
+  handleDeleteButtonClick: () => void
 }
 
 export default function CardFooter({

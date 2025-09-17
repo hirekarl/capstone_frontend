@@ -1,10 +1,10 @@
 import BaseCardButton from "./BaseCardButton"
 
-export default function DeleteButton({
-  handleClick,
-}: {
-  handleClick: (event: React.MouseEvent) => void
-}) {
+interface DeleteButtonProps {
+  handleClick: () => void
+}
+
+export default function DeleteButton({ handleClick }: DeleteButtonProps) {
   return (
     <BaseCardButton
       color="danger"

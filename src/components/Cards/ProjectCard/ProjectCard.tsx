@@ -1,34 +1,34 @@
 import { useState, type Dispatch, type SetStateAction } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { type ProjectType } from "../../types"
+import { type ProjectType } from "../../../types"
 
-import { useLocalStorage } from "../../hooks/useLocalStorage"
+import { useLocalStorage } from "../../../hooks/useLocalStorage"
 
-import { deleteProject } from "../../api/apiController"
+import { deleteProject } from "../../../api/apiController"
 
-import BaseCard from "./BaseCard"
+import BaseProjectCard from "./BaseProjectCard"
 import EditProjectFormCard from "./EditProjectFormCard"
 
 export interface ProjectCardProps {
-  data: ProjectType
+  project: ProjectType
   setNeedsReload: Dispatch<SetStateAction<boolean>>
 }
 
 export default function ProjectCard({
-  data,
+  project,
   setNeedsReload,
 }: ProjectCardProps) {
-  const projectId = data._id
+  const projectId = project._id
   const navigate = useNavigate()
 
   const [isEditing, setIsEditing] = useState<boolean>(false)
 
-  const [userData, _setUserData] = useLocalStorage()
+  const [userData] = useLocalStorage()
   const token = userData?.token
 
   const handleDetailButtonClick = () => {
-    navigate(`projects/${projectId}`)
+    navigate(`${projectId}`)
   }
   const handleEditButtonClick = () => {
     setIsEditing(true)
@@ -43,14 +43,14 @@ export default function ProjectCard({
   const content = isEditing ? (
     <div className="card mb-3">
       <EditProjectFormCard
-        project={data}
+        project={project}
         setIsEditing={setIsEditing}
         setNeedsReload={setNeedsReload}
       />
     </div>
   ) : (
-    <BaseCard
-      data={data}
+    <BaseProjectCard
+      project={project}
       handleDetailButtonClick={handleDetailButtonClick}
       handleEditButtonClick={handleEditButtonClick}
       handleDeleteButtonClick={handleDeleteButtonClick}

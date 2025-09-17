@@ -1,10 +1,10 @@
 import BaseCardButton from "./BaseCardButton"
 
-export default function EditButton({
-  handleClick,
-}: {
-  handleClick: (event: React.MouseEvent) => void
-}) {
+interface EditButtonProps {
+  handleClick: () => void
+}
+
+export default function EditButton({ handleClick }: EditButtonProps) {
   return (
     <BaseCardButton
       color="warning"

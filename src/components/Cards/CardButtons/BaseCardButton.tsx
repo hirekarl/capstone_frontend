@@ -1,8 +1,8 @@
-export interface BaseCardButtonProps {
+interface BaseCardButtonProps {
   color: "info" | "warning" | "danger"
   icon: "info-circle" | "pencil-square" | "trash"
   text: "Detail" | "Edit" | "Delete"
-  handleClick: (event: React.MouseEvent) => void
+  handleClick: () => void
 }
 
 export default function BaseCardButton({

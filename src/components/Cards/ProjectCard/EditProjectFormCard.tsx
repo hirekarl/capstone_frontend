@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from "react"
 
-import type { ProjectType } from "../../types"
+import type { ProjectType } from "../../../types"
 
-import EditProjectForm from "../../forms/EditProjectForm"
+import EditProjectForm from "../../../forms/EditProjectForm"
 
 export interface EditProjectFormCardProps {
   project: ProjectType

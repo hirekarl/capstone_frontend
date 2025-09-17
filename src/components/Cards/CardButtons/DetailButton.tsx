@@ -1,10 +1,10 @@
 import BaseCardButton from "./BaseCardButton"
 
-export default function DetailButton({
-  handleClick,
-}: {
-  handleClick: (event: React.MouseEvent) => void
-}) {
+interface DetailButtonProps {
+  handleClick: () => void
+}
+
+export default function DetailButton({ handleClick }: DetailButtonProps) {
   return (
     <BaseCardButton
       color="info"
