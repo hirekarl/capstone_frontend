@@ -82,6 +82,7 @@ export default function EditProjectForm({
           name="name"
           type="text"
           aria-describedby={!nameIsValid && isDirty ? "name-help" : undefined}
+          autoComplete="off"
           onChange={handleChange}
           value={projectFormData.name}
           className={
@@ -108,6 +109,7 @@ export default function EditProjectForm({
           aria-describedby={
             !descriptionIsValid && isDirty ? "description-help" : undefined
           }
+          autoComplete="off"
           onChange={handleChange}
           value={projectFormData.description}
           className={

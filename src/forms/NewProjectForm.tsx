@@ -80,6 +80,7 @@ export default function NewProjectForm({
           name="name"
           type="text"
           aria-describedby={!nameIsValid && isDirty ? "name-help" : undefined}
+          autoComplete="off"
           onChange={handleChange}
           value={newProjectFormData.name}
           className={
@@ -106,6 +107,7 @@ export default function NewProjectForm({
           aria-describedby={
             !descriptionIsValid && isDirty ? "description-help" : undefined
           }
+          autoComplete="off"
           onChange={handleChange}
           value={newProjectFormData.description}
           className={

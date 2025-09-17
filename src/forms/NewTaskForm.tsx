@@ -86,6 +86,7 @@ export default function NewTaskForm({
           name="title"
           type="text"
           aria-describedby={!titleIsValid && isDirty ? "title-help" : undefined}
+          autoComplete="off"
           onChange={handleChange}
           value={taskFormData.title}
           className={
@@ -112,6 +113,7 @@ export default function NewTaskForm({
           aria-describedby={
             !descriptionIsValid && isDirty ? "description-help" : undefined
           }
+          autoComplete="off"
           onChange={handleChange}
           value={taskFormData.description}
           className={

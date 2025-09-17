@@ -63,6 +63,7 @@ export default function LoginForm() {
           name="email"
           type="email"
           aria-describedby={!emailIsValid && isDirty ? "email-help" : undefined}
+          autoComplete="email"
           onChange={handleChange}
           value={userLoginFormData.email}
           className={
@@ -88,6 +89,7 @@ export default function LoginForm() {
           aria-describedby={
             !passwordIsValid && isDirty ? "password-help" : undefined
           }
+          autoComplete="off"
           onChange={handleChange}
           value={userLoginFormData.password}
           className={

@@ -82,6 +82,7 @@ export default function RegisterForm() {
           aria-describedby={
             !usernameIsValid && isDirty ? "username-help" : undefined
           }
+          autoComplete="username"
           onChange={handleChange}
           value={userRegisterFormData.username}
           className={
@@ -105,6 +106,7 @@ export default function RegisterForm() {
           name="email"
           type="email"
           aria-describedby={!emailIsValid && isDirty ? "email-help" : undefined}
+          autoComplete="email"
           onChange={handleChange}
           value={userRegisterFormData.email}
           className={
@@ -130,6 +132,7 @@ export default function RegisterForm() {
           aria-describedby={
             !passwordIsValid && isDirty ? "password-help" : undefined
           }
+          autoComplete="off"
           onChange={handleChange}
           value={userRegisterFormData.password}
           className={
@@ -157,6 +160,7 @@ export default function RegisterForm() {
               ? "password-confirm-help"
               : undefined
           }
+          autoComplete="off"
           onChange={handleChange}
           value={userRegisterFormData.passwordConfirm}
           className={
