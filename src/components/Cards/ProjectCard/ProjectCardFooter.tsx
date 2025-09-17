@@ -15,10 +15,12 @@ export default function ProjectCardFooter({
 }: ProjectCardFooterProps) {
   return (
     <div className="card-footer">
-      <div className="d-flex align-items-center justify-content-start gap-1">
+      <div className="d-flex align-items-center justify-content-between">
         <DetailButton handleClick={handleDetailButtonClick} />
-        <EditButton handleClick={handleEditButtonClick} />
-        <DeleteButton handleClick={handleDeleteButtonClick} />
+        <div className="d-flex align-items-center justify-content-end gap-1">
+          <EditButton handleClick={handleEditButtonClick} />
+          <DeleteButton handleClick={handleDeleteButtonClick} />
+        </div>
       </div>
     </div>
   )
