@@ -1,36 +1,35 @@
-import { useContext, useState, useEffect, type Dispatch, type SetStateAction } from "react"
-import { useNavigate } from "react-router-dom"
+import {
+  useState,
+  useEffect,
+  type ChangeEvent,
+  type Dispatch,
+  type SetStateAction,
+} from "react"
 
-import axios from "axios"
-
-import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
-import type { ProjectFormDataType } from "../types"
+import type { ProjectType, ProjectFormDataType } from "../types"
 
 import { useLocalStorage } from "../hooks/useLocalStorage"
-import { VITE_ENDPOINT_BASE_URL } from "../utils"
 
-export interface NewProjectFormProps {
+import { editProject } from "../api/apiController"
+
+export interface EditProjectFormProps {
+  project: ProjectType
+  setIsEditing: Dispatch<SetStateAction<boolean>>
   setNeedsReload: Dispatch<SetStateAction<boolean>>
 }
 
-export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
-  const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
+export default function EditProjectForm({
+  project,
+  setIsEditing,
+  setNeedsReload,
+}: EditProjectFormProps) {
   const [userData, _setUserData] = useLocalStorage()
   const token = userData?.token
 
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login")
-    }
-  }, [isAuthenticated])
-
-  const [newProjectFormData, setNewProjectFormData] =
-    useState<ProjectFormDataType>({
-      name: "",
-      description: "",
-    })
+  const [projectFormData, setProjectFormData] = useState<ProjectFormDataType>({
+    name: project.name,
+    description: project.description,
+  })
 
   const [isDirty, setIsDirty] = useState<boolean>(false)
 
@@ -38,18 +37,18 @@ export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
   const [descriptionIsValid, setDescriptionIsValid] = useState<boolean>(false)
 
   useEffect(() => {
-    setNameIsValid(newProjectFormData.name !== "")
-    setDescriptionIsValid(newProjectFormData.description !== "")
-  }, [newProjectFormData])
+    setNameIsValid(projectFormData.name !== "")
+    setDescriptionIsValid(projectFormData.description !== "")
+  }, [projectFormData])
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (!isDirty) {
       setIsDirty(true)
     }
 
-    setNewProjectFormData((prevData) => ({
+    setProjectFormData((prevData) => ({
       ...prevData,
       [event.target.name]: event.target.value,
     }))
@@ -58,33 +57,14 @@ export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (nameIsValid && descriptionIsValid) {
-      axios
-        .post(
-          `${VITE_ENDPOINT_BASE_URL}/projects`,
-          {
-            name: newProjectFormData.name,
-            description: newProjectFormData.description,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((_response) => {
-          setNewProjectFormData({
-            name: "",
-            description: "",
-          })
-          setIsDirty(false)
-          setNeedsReload((prevNeedsReload) => !prevNeedsReload)
-          navigate("/projects")
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+    if (nameIsValid && descriptionIsValid && token) {
+      try {
+        await editProject(token, project._id, projectFormData)
+        setIsEditing(false)
+        setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 
@@ -100,7 +80,7 @@ export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
           type="text"
           aria-describedby={!nameIsValid && isDirty ? "name-help" : undefined}
           onChange={handleChange}
-          value={newProjectFormData.name}
+          value={projectFormData.name}
           className={
             isDirty
               ? !nameIsValid
@@ -126,7 +106,7 @@ export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
             !descriptionIsValid && isDirty ? "description-help" : undefined
           }
           onChange={handleChange}
-          value={newProjectFormData.description}
+          value={projectFormData.description}
           className={
             isDirty
               ? !descriptionIsValid
@@ -141,13 +121,20 @@ export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
           </div>
         )}
       </div>
-      <button
-        type="submit"
-        disabled={!(nameIsValid && descriptionIsValid)}
-        className="btn btn-primary w-100"
-      >
-        Submit
-      </button>
+      <div className="btn-group w-100" role="group">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={() => setIsEditing(false)}>
+          Close
+        </button>
+        <button
+          type="submit"
+          disabled={!(nameIsValid && descriptionIsValid)}
+          className="btn btn-primary">
+          Save
+        </button>
+      </div>
     </form>
   )
 }

@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { NewProjectFormDataType, NewTaskFormDataType } from "../types"
+import type { ProjectFormDataType, TaskFormDataType } from "../types"
 import { VITE_ENDPOINT_BASE_URL } from "../utils"
 
 const apiClient = axios.create({
@@ -20,7 +20,7 @@ export const getAllProjects = async (token: string) => {
 
 export const createNewProject = async (
   token: string,
-  newProjectFormData: NewProjectFormDataType
+  newProjectFormData: ProjectFormDataType
 ) => {
   const response = await apiClient.post("projects", newProjectFormData, {
     headers: {
@@ -73,7 +73,7 @@ export const getProjectTasks = async (token: string, projectId: string) => {
 export const createNewTask = async (
   token: string,
   projectId: string,
-  newTaskFormData: NewTaskFormDataType
+  newTaskFormData: TaskFormDataType
 ) => {
   const response = await apiClient.post(
     `projects/${projectId}/tasks`,

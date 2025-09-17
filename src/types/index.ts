@@ -11,7 +11,7 @@ export interface ProjectType {
   owner: string
 }
 
-export interface NewProjectFormDataType {
+export interface ProjectFormDataType {
   name: string
   description: string
 }
@@ -26,7 +26,7 @@ export interface TaskType {
   project: string
 }
 
-export interface NewTaskFormDataType {
+export interface TaskFormDataType {
   title: string
   description: string
   status?: TaskStatusType

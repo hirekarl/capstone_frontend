@@ -1,15 +1,22 @@
-import ProjectCard from "./ProjectCard"
+import ProjectCard from "./Cards/ProjectCard"
 
 import type { ProjectType } from "../types"
+import type { Dispatch, SetStateAction } from "react"
 
-export default function ProjectList({ projects }: { projects: ProjectType[] }) {
+export interface ProjectListProps {
+  projects: ProjectType[]
+  setNeedsReload: Dispatch<SetStateAction<boolean>>
+}
+
+export default function ProjectList({
+  projects,
+  setNeedsReload,
+}: ProjectListProps) {
   const projectCards = projects?.map((project) => (
     <ProjectCard
       key={project._id}
-      _id={project._id}
-      name={project.name}
-      description={project.description}
-      owner={project.owner}
+      data={project}
+      setNeedsReload={setNeedsReload}
     />
   ))
   return projectCards
