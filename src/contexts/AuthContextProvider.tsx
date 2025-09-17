@@ -130,7 +130,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     validateToken()
-  })
+  }, [])
 
   return (
     <AuthContext.Provider
