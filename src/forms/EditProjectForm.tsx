@@ -4,6 +4,7 @@ import {
   type ChangeEvent,
   type Dispatch,
   type SetStateAction,
+  type FormEvent,
 } from "react"
 
 import type { ProjectType, ProjectFormDataType } from "../types"
@@ -23,6 +24,8 @@ export default function EditProjectForm({
   setIsEditing,
   setNeedsReload,
 }: EditProjectFormProps) {
+  const projectId = project._id
+
   const [userData] = useLocalStorage()
   const token = userData?.token
 
@@ -54,12 +57,12 @@ export default function EditProjectForm({
     }))
   }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (nameIsValid && descriptionIsValid && token) {
       try {
-        await editProject(token, project._id, projectFormData)
+        await editProject(token, projectId, projectFormData)
         setIsEditing(false)
         setNeedsReload((prevNeedsReload) => !prevNeedsReload)
       } catch (error) {

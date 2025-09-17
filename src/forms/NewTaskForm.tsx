@@ -42,7 +42,7 @@ export default function NewTaskForm({
   }, [taskFormData])
 
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     if (!isDirty) {
       setIsDirty(true)
@@ -128,10 +128,13 @@ export default function NewTaskForm({
       </div>
       <div className="mb-3">
         <label htmlFor="status-select">Status</label>
-        <select name="status" id="status-select" className="form-select">
-          <option value="To Do" selected>
-            To Do
-          </option>
+        <select
+          name="status"
+          id="status-select"
+          className="form-select"
+          value={taskFormData.status}
+          onChange={handleChange}>
+          <option value="To Do">To Do</option>
           <option value="In Progress">In Progress</option>
           <option value="Completed" disabled>
             Completed

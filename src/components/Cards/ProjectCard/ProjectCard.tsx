@@ -10,7 +10,7 @@ import { deleteProject } from "../../../api/apiController"
 import BaseProjectCard from "./BaseProjectCard"
 import EditProjectFormCard from "./EditProjectFormCard"
 
-export interface ProjectCardProps {
+interface ProjectCardProps {
   project: ProjectType
   setNeedsReload: Dispatch<SetStateAction<boolean>>
 }

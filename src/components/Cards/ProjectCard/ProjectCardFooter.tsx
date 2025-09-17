@@ -2,7 +2,7 @@ import DetailButton from "../CardButtons/DetailButton"
 import EditButton from "../CardButtons/EditButton"
 import DeleteButton from "../CardButtons/DeleteButton"
 
-export interface ProjectCardFooterProps {
+interface ProjectCardFooterProps {
   handleDetailButtonClick: () => void
   handleEditButtonClick: () => void
   handleDeleteButtonClick: () => void

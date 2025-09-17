@@ -4,7 +4,7 @@ import type { ProjectType } from "../../../types"
 
 import EditProjectForm from "../../../forms/EditProjectForm"
 
-export interface EditProjectFormCardProps {
+interface EditProjectFormCardProps {
   project: ProjectType
   setIsEditing: Dispatch<SetStateAction<boolean>>
   setNeedsReload: Dispatch<SetStateAction<boolean>>

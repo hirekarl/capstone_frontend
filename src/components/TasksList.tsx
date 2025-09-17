@@ -1,17 +1,16 @@
 import TaskCard from "./Cards/TaskCard/TaskCard"
 
 import type { TaskType } from "../types"
+import type { Dispatch, SetStateAction } from "react"
 
-export default function TasksList({ tasks }: { tasks: TaskType[] }) {
+export interface TasksListProps {
+  tasks: TaskType[]
+  setNeedsReload: Dispatch<SetStateAction<boolean>>
+}
+
+export default function TasksList({ tasks, setNeedsReload }: TasksListProps) {
   const taskCards = tasks?.map((task) => (
-    <TaskCard
-      key={task._id}
-      _id={task._id}
-      title={task.title}
-      description={task.description}
-      status={task.status}
-      project={task.project}
-    />
+    <TaskCard key={task._id} task={task} setNeedsReload={setNeedsReload} />
   ))
   return taskCards
 }
