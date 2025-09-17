@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect } from "react"
 
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
+
 import type { UserRegisterFormDataType } from "../types"
 
-const emailRegEx = /.+\@.+\..+/
+import { emailRegEx } from "../utils"
 
 export default function RegisterForm() {
   const { register } = useContext<AuthContextType>(AuthContext)
@@ -41,6 +42,7 @@ export default function RegisterForm() {
       usernameIsValid &&
       emailIsValid &&
       passwordIsValid &&
+      passwordConfirmIsValid &&
       register !== null
     ) {
       register({

@@ -1,30 +1,26 @@
-import { useContext, useState, useEffect, type Dispatch, type SetStateAction } from "react"
-import { useNavigate } from "react-router-dom"
+import {
+  useState,
+  useEffect,
+  type Dispatch,
+  type SetStateAction,
+  type FormEvent,
+} from "react"
 
-import axios from "axios"
-
-import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 import type { ProjectFormDataType } from "../types"
 
 import { useLocalStorage } from "../hooks/useLocalStorage"
-import { VITE_ENDPOINT_BASE_URL } from "../utils"
+
+import { createNewProject } from "../api/apiController"
 
 export interface NewProjectFormProps {
   setNeedsReload: Dispatch<SetStateAction<boolean>>
 }
 
-export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
-  const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
-  const [userData, _setUserData] = useLocalStorage()
+export default function NewProjectForm({
+  setNeedsReload,
+}: NewProjectFormProps) {
+  const [userData] = useLocalStorage()
   const token = userData?.token
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login")
-    }
-  }, [isAuthenticated])
 
   const [newProjectFormData, setNewProjectFormData] =
     useState<ProjectFormDataType>({
@@ -55,36 +51,21 @@ export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
     }))
   }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (nameIsValid && descriptionIsValid) {
-      axios
-        .post(
-          `${VITE_ENDPOINT_BASE_URL}/projects`,
-          {
-            name: newProjectFormData.name,
-            description: newProjectFormData.description,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((_response) => {
-          setNewProjectFormData({
-            name: "",
-            description: "",
-          })
-          setIsDirty(false)
-          setNeedsReload((prevNeedsReload) => !prevNeedsReload)
-          navigate("/projects")
+    if (nameIsValid && descriptionIsValid && token) {
+      try {
+        await createNewProject(token, newProjectFormData)
+        setNewProjectFormData({
+          name: "",
+          description: "",
         })
-        .catch((error) => {
-          console.error(error)
-        })
+        setIsDirty(false)
+        setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 
@@ -144,8 +125,7 @@ export default function NewProjectForm({setNeedsReload}: NewProjectFormProps) {
       <button
         type="submit"
         disabled={!(nameIsValid && descriptionIsValid)}
-        className="btn btn-primary w-100"
-      >
+        className="btn btn-primary w-100">
         Submit
       </button>
     </form>

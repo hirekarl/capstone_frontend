@@ -12,7 +12,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage"
 
 import { editProject } from "../api/apiController"
 
-export interface EditProjectFormProps {
+interface EditProjectFormProps {
   project: ProjectType
   setIsEditing: Dispatch<SetStateAction<boolean>>
   setNeedsReload: Dispatch<SetStateAction<boolean>>

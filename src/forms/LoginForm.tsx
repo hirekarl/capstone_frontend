@@ -1,21 +1,28 @@
-import { useContext, useState, useEffect } from "react"
+import {
+  useContext,
+  useState,
+  useEffect,
+  type ChangeEvent,
+  type FormEvent,
+} from "react"
 
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
+
 import type { UserLoginFormDataType } from "../types"
 
-const emailRegEx = /.+\@.+\..+/
+import { emailRegEx } from "../utils"
 
 export default function LoginForm() {
   const { login } = useContext<AuthContextType>(AuthContext)
+
   const [userLoginFormData, setUserLoginFormData] =
     useState<UserLoginFormDataType>({ email: "", password: "" })
 
   const [isDirty, setIsDirty] = useState<boolean>(false)
-
   const [emailIsValid, setEmailIsValid] = useState<boolean>(false)
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>(false)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isDirty) {
       setIsDirty(true)
     }
@@ -26,7 +33,7 @@ export default function LoginForm() {
     }))
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (emailIsValid && passwordIsValid && login !== null) {
@@ -100,8 +107,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={!(emailIsValid && passwordIsValid)}
-        className="btn btn-primary w-100"
-      >
+        className="btn btn-primary w-100">
         Submit
       </button>
     </form>
