@@ -1,4 +1,4 @@
-import type { MouseEvent, ReactNode } from "react"
+import type { MouseEvent } from "react"
 import type { ProjectType, TaskType } from "../../types"
 
 import CardBody from "./CardBody"
