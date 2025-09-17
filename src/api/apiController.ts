@@ -20,9 +20,9 @@ export const getAllProjects = async (token: string) => {
 
 export const createNewProject = async (
   token: string,
-  newProjectFormData: ProjectFormDataType
+  projectFormData: ProjectFormDataType
 ) => {
-  const response = await apiClient.post("projects", newProjectFormData, {
+  const response = await apiClient.post("projects", projectFormData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -73,11 +73,11 @@ export const getProjectTasks = async (token: string, projectId: string) => {
 export const createNewTask = async (
   token: string,
   projectId: string,
-  newTaskFormData: TaskFormDataType
+  taskFormData: TaskFormDataType
 ) => {
   const response = await apiClient.post(
     `projects/${projectId}/tasks`,
-    newTaskFormData,
+    taskFormData,
     {
       headers: {
         Authorization: `Bearer ${token}`,
