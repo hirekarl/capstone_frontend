@@ -1,5 +1,3 @@
-import type { MouseEvent } from "react"
-
 import DetailButton from "../CardButtons/DetailButton"
 import EditButton from "../CardButtons/EditButton"
 import DeleteButton from "../CardButtons/DeleteButton"
