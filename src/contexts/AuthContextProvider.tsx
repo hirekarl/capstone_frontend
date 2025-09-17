@@ -130,6 +130,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     validateToken()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
