@@ -23,7 +23,7 @@ export default function EditProjectForm({
   setIsEditing,
   setNeedsReload,
 }: EditProjectFormProps) {
-  const [userData, _setUserData] = useLocalStorage()
+  const [userData] = useLocalStorage()
   const token = userData?.token
 
   const [projectFormData, setProjectFormData] = useState<ProjectFormDataType>({
