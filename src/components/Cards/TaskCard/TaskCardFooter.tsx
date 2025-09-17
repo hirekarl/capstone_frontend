@@ -31,6 +31,7 @@ export default function ProjectCardFooter({
     await handleStatusChange(event.target.value as TaskStatusType)
     setNeedsReload((prevNeedsReload) => !prevNeedsReload)
   }
+
   return (
     <div className="card-footer">
       <div className="d-flex align-items-center justify-content-between">
