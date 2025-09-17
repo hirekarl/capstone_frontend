@@ -1,10 +1,10 @@
 import { useState, type Dispatch, type SetStateAction } from "react"
 
-import { type TaskType } from "../../../types"
+import { type TaskStatusType, type TaskType } from "../../../types"
 
 import { useLocalStorage } from "../../../hooks/useLocalStorage"
 
-import { deleteTask } from "../../../api/apiController"
+import { editTask, deleteTask } from "../../../api/apiController"
 
 import BaseTaskCard from "./BaseTaskCard"
 import EditTaskFormCard from "./EditTaskFormCard"
@@ -28,24 +28,38 @@ export default function TaskCard({ task, setNeedsReload }: TaskCardProps) {
   }
   const handleDeleteButtonClick = async () => {
     if (token) {
-      await deleteTask(token, projectId, taskId)
-      setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+      try {
+        await deleteTask(token, projectId, taskId)
+        setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
+  const handleStatusChange = async (newStatus: TaskStatusType) => {
+    if (token) {
+      try {
+        await editTask(token, projectId, taskId, { status: newStatus })
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 
   const content = isEditing ? (
-    <div className="card mb-3">
-      <EditTaskFormCard
-        task={task}
-        setIsEditing={setIsEditing}
-        setNeedsReload={setNeedsReload}
-      />
-    </div>
+    <EditTaskFormCard
+      task={task}
+      setIsEditing={setIsEditing}
+      setNeedsReload={setNeedsReload}
+    />
   ) : (
     <BaseTaskCard
       task={task}
       handleEditButtonClick={handleEditButtonClick}
       handleDeleteButtonClick={handleDeleteButtonClick}
+      handleStatusChange={handleStatusChange}
+      setNeedsReload={setNeedsReload}
     />
   )
 

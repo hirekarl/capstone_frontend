@@ -74,70 +74,74 @@ export default function EditTaskForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mb-3">
-        <label htmlFor="title-input" className="form-label">
-          Title
-        </label>
-        <input
-          id="title-input"
-          name="title"
-          type="text"
-          aria-describedby={!titleIsValid && isDirty ? "title-help" : undefined}
-          onChange={handleChange}
-          value={taskFormData.title}
-          className={
-            isDirty
-              ? !titleIsValid
-                ? "form-control is-invalid"
-                : "form-control is-valid"
-              : "form-control"
-          }
-        />
-        {!titleIsValid && isDirty && (
-          <div id="title-help" className="text-danger form-text">
-            Please enter a project name.
-          </div>
-        )}
-      </div>
-      <div className="mb-3">
-        <label htmlFor="description-textarea" className="form-label">
-          Description
-        </label>
-        <textarea
-          id="description-textarea"
-          name="description"
-          aria-describedby={
-            !descriptionIsValid && isDirty ? "description-help" : undefined
-          }
-          onChange={handleChange}
-          value={taskFormData.description}
-          className={
-            isDirty
-              ? !descriptionIsValid
-                ? "form-control is-invalid"
-                : "form-control is-valid"
-              : "form-control"
-          }
-        />
-        {!descriptionIsValid && isDirty && (
-          <div id="description-help" className="text-danger form-text">
-            Please enter a description.
-          </div>
-        )}
-      </div>
-      <div className="btn-group w-100" role="group">
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={() => setIsEditing(false)}>
-          Close
-        </button>
-        <button
-          type="submit"
-          disabled={!(titleIsValid && descriptionIsValid)}
-          className="btn btn-primary">
-          Save
-        </button>
+      <div>
+        <div className="mb-3">
+          <label htmlFor="title-input" className="form-label">
+            Title
+          </label>
+          <input
+            id="title-input"
+            name="title"
+            type="text"
+            aria-describedby={
+              !titleIsValid && isDirty ? "title-help" : undefined
+            }
+            onChange={handleChange}
+            value={taskFormData.title}
+            className={
+              isDirty
+                ? !titleIsValid
+                  ? "form-control is-invalid"
+                  : "form-control is-valid"
+                : "form-control"
+            }
+          />
+          {!titleIsValid && isDirty && (
+            <div id="title-help" className="text-danger form-text">
+              Please enter a project name.
+            </div>
+          )}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="description-textarea" className="form-label">
+            Description
+          </label>
+          <textarea
+            id="description-textarea"
+            name="description"
+            aria-describedby={
+              !descriptionIsValid && isDirty ? "description-help" : undefined
+            }
+            onChange={handleChange}
+            value={taskFormData.description}
+            className={
+              isDirty
+                ? !descriptionIsValid
+                  ? "form-control is-invalid"
+                  : "form-control is-valid"
+                : "form-control"
+            }
+          />
+          {!descriptionIsValid && isDirty && (
+            <div id="description-help" className="text-danger form-text">
+              Please enter a description.
+            </div>
+          )}
+        </div>
+        <div className="btn-group w-100" role="group">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setIsEditing(false)}>
+            Close
+          </button>
+          <button
+            type="submit"
+            disabled={!(titleIsValid && descriptionIsValid)}
+            className="btn btn-primary">
+            Save
+          </button>
+        </div>
       </div>
     </form>
   )
