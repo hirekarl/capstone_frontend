@@ -1,4 +1,9 @@
-import { useState, type ChangeEvent, type Dispatch, type SetStateAction } from "react"
+import {
+  useState,
+  type ChangeEvent,
+  type Dispatch,
+  type SetStateAction,
+} from "react"
 
 import EditButton from "../CardButtons/EditButton"
 import DeleteButton from "../CardButtons/DeleteButton"
@@ -17,7 +22,7 @@ export default function ProjectCardFooter({
   handleEditButtonClick,
   handleDeleteButtonClick,
   handleStatusChange,
-  setNeedsReload
+  setNeedsReload,
 }: TaskCardFooterProps) {
   const [status, setStatus] = useState<TaskStatusType>(task.status)
 
@@ -30,7 +35,11 @@ export default function ProjectCardFooter({
     <div className="card-footer">
       <div className="d-flex align-items-center justify-content-between">
         <div>
-          <select name="status" className="form-select" onChange={handleChange} value={status}>
+          <select
+            name="status"
+            className="form-select"
+            onChange={handleChange}
+            value={status}>
             <option value="To Do">To Do</option>
             <option value="In Progress">In Progress</option>
             <option value="Done">Done</option>

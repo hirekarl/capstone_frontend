@@ -141,8 +141,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         logout,
         validateToken,
         alertMessage,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   )

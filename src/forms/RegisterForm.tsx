@@ -183,8 +183,7 @@ export default function RegisterForm() {
             passwordConfirmIsValid
           )
         }
-        className="btn btn-primary w-100"
-      >
+        className="btn btn-primary w-100">
         Submit
       </button>
     </form>

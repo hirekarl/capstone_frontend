@@ -42,7 +42,9 @@ export default function NewTaskForm({
   }, [taskFormData])
 
   const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     if (!isDirty) {
       setIsDirty(true)

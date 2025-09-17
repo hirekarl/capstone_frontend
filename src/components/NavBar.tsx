@@ -7,7 +7,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage"
 
 const NavBar = () => {
   const { isAuthenticated, logout } = useContext<AuthContextType>(AuthContext)
-  const [userData, _] = useLocalStorage()
+  const [userData] = useLocalStorage()
 
   const handleLogout = () => {
     if (logout) {
@@ -22,8 +22,7 @@ const NavBar = () => {
           to="/login"
           className={({ isActive }) =>
             isActive ? "nav-link active" : "nav-link"
-          }
-        >
+          }>
           Login
         </NavLink>
       </li>
@@ -32,8 +31,7 @@ const NavBar = () => {
           to="/register"
           className={({ isActive }) =>
             isActive ? "nav-link active" : "nav-link"
-          }
-        >
+          }>
           Register
         </NavLink>
       </li>
@@ -52,8 +50,7 @@ const NavBar = () => {
           to="/projects"
           className={({ isActive }) =>
             isActive ? "nav-link active" : "nav-link"
-          }
-        >
+          }>
           My Projects
         </NavLink>
       </li>
@@ -61,8 +58,7 @@ const NavBar = () => {
         <button
           type="button"
           className="btn btn-sm btn-primary"
-          onClick={handleLogout}
-        >
+          onClick={handleLogout}>
           Logout
         </button>
       </li>
@@ -82,8 +78,7 @@ const NavBar = () => {
           data-bs-target="#navbarSupportedContent"
           aria-controls="#navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+          aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
