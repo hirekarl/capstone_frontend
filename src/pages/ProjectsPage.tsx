@@ -9,7 +9,7 @@ import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 import NewProjectForm from "../forms/NewProjectForm"
 import { type ProjectType } from "../types"
 
-import ProjectList from "../components/ProjectList"
+import ProjectsList from "../components/ProjectsList"
 
 export default function ProjectsPage() {
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
@@ -65,7 +65,7 @@ export default function ProjectsPage() {
             {loading && <p>Loading projects...</p>}
             {error && <p>Error: {error}</p>}
             {!loading && !error && projects && (
-              <ProjectList
+              <ProjectsList
                 projects={projects}
                 setNeedsReload={setNeedsReload}
               />

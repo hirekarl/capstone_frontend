@@ -1,7 +1,7 @@
 import type { ProjectType } from "../../../types"
 
-import CardBody from "./ProjectCardBody"
-import CardFooter from "./ProjectCardFooter"
+import ProjectCardBody from "./ProjectCardBody"
+import ProjectCardFooter from "./ProjectCardFooter"
 
 interface BaseProjectCardProps {
   project: ProjectType
@@ -18,8 +18,8 @@ export default function BaseProjectCard({
 }: BaseProjectCardProps) {
   return (
     <div className="card mb-3">
-      <CardBody heading={data.name} text={data.description} />
-      <CardFooter
+      <ProjectCardBody heading={data.name} text={data.description} />
+      <ProjectCardFooter
         handleDetailButtonClick={handleDetailButtonClick}
         handleEditButtonClick={handleEditButtonClick}
         handleDeleteButtonClick={handleDeleteButtonClick}

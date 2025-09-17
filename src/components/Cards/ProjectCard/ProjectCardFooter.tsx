@@ -2,17 +2,17 @@ import DetailButton from "../CardButtons/DetailButton"
 import EditButton from "../CardButtons/EditButton"
 import DeleteButton from "../CardButtons/DeleteButton"
 
-export interface CardFooterProps {
+export interface ProjectCardFooterProps {
   handleDetailButtonClick: () => void
   handleEditButtonClick: () => void
   handleDeleteButtonClick: () => void
 }
 
-export default function CardFooter({
+export default function ProjectCardFooter({
   handleDetailButtonClick,
   handleEditButtonClick,
   handleDeleteButtonClick,
-}: CardFooterProps) {
+}: ProjectCardFooterProps) {
   return (
     <div className="card-footer">
       <div className="d-flex align-items-center justify-content-start gap-1">

@@ -1,9 +1,9 @@
-import TaskCard from "./TaskCard"
+import TaskCard from "./Cards/TaskCard/TaskCard"
 
 import type { TaskType } from "../types"
 
-export default function ProjectList({ tasks }: { tasks: TaskType[] }) {
-  const projectCards = tasks?.map((task) => (
+export default function TasksList({ tasks }: { tasks: TaskType[] }) {
+  const taskCards = tasks?.map((task) => (
     <TaskCard
       key={task._id}
       _id={task._id}
@@ -13,5 +13,5 @@ export default function ProjectList({ tasks }: { tasks: TaskType[] }) {
       project={task.project}
     />
   ))
-  return projectCards
+  return taskCards
 }
