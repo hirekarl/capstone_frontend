@@ -41,13 +41,11 @@ export default function ProjectCard({
   }
 
   const content = isEditing ? (
-    <div className="card mb-3">
-      <EditProjectFormCard
-        project={project}
-        setIsEditing={setIsEditing}
-        setNeedsReload={setNeedsReload}
-      />
-    </div>
+    <EditProjectFormCard
+      project={project}
+      setIsEditing={setIsEditing}
+      setNeedsReload={setNeedsReload}
+    />
   ) : (
     <BaseProjectCard
       project={project}
