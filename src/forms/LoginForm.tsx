@@ -57,7 +57,9 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
-        <label htmlFor="email-input">Email</label>
+        <label htmlFor="email-input" className="form-label">
+          Email
+        </label>
         <input
           id="email-input"
           name="email"
@@ -81,7 +83,9 @@ export default function LoginForm() {
         )}
       </div>
       <div className="mb-3">
-        <label htmlFor="password-input">Password</label>
+        <label htmlFor="password-input" className="form-label">
+          Password
+        </label>
         <input
           id="password-input"
           name="password"

@@ -134,7 +134,9 @@ export default function NewTaskForm({ projectId, setTasks }: NewTaskFormProps) {
         )}
       </div>
       <div className="mb-3">
-        <label htmlFor="status-select">Status</label>
+        <label htmlFor="status-select" className="form-label">
+          Status
+        </label>
         <select
           name="status"
           id="status-select"

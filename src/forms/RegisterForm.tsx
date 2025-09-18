@@ -74,7 +74,9 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
-        <label htmlFor="username-input">Username</label>
+        <label htmlFor="username-input" className="form-label">
+          Username
+        </label>
         <input
           id="username-input"
           name="username"
@@ -100,7 +102,9 @@ export default function RegisterForm() {
         )}
       </div>
       <div className="mb-3">
-        <label htmlFor="email-input">Email</label>
+        <label htmlFor="email-input" className="form-label">
+          Email
+        </label>
         <input
           id="email-input"
           name="email"
@@ -124,7 +128,9 @@ export default function RegisterForm() {
         )}
       </div>
       <div className="mb-3">
-        <label htmlFor="password-input">Password</label>
+        <label htmlFor="password-input" className="form-label">
+          Password
+        </label>
         <input
           id="password-input"
           name="password"
@@ -150,7 +156,9 @@ export default function RegisterForm() {
         )}
       </div>
       <div className="mb-3">
-        <label htmlFor="password-confirm-input">Password (again)</label>
+        <label htmlFor="password-confirm-input" className="form-label">
+          Password (again)
+        </label>
         <input
           id="password-confirm-input"
           name="passwordConfirm"
