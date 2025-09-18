@@ -11,10 +11,10 @@ import EditTaskFormCard from "./EditTaskFormCard"
 
 interface TaskCardProps {
   task: TaskType
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setTasks: Dispatch<SetStateAction<TaskType[] | null>>
 }
 
-export default function TaskCard({ task, setNeedsReload }: TaskCardProps) {
+export default function TaskCard({ task, setTasks }: TaskCardProps) {
   const taskId = task._id
   const projectId = task.project
 
@@ -29,8 +29,12 @@ export default function TaskCard({ task, setNeedsReload }: TaskCardProps) {
   const handleDeleteButtonClick = async () => {
     if (token) {
       try {
-        await deleteTask(token, projectId, taskId)
-        setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+        const deletedTask = await deleteTask(token, projectId, taskId)
+        setTasks((prevTasks) =>
+          prevTasks
+            ? prevTasks.filter((task) => task._id !== deletedTask._id)
+            : null
+        )
       } catch (error) {
         console.error(error)
       }
@@ -40,18 +44,29 @@ export default function TaskCard({ task, setNeedsReload }: TaskCardProps) {
   const handleStatusChange = async (newStatus: TaskStatusType) => {
     if (token) {
       try {
-        await editTask(token, projectId, taskId, { status: newStatus })
+        const editedTask = await editTask(token, projectId, taskId, {
+          status: newStatus,
+        })
+        setTasks((prevTasks) =>
+          prevTasks
+            ? prevTasks.map((task) =>
+                task._id === editedTask._id ? editedTask : task
+              )
+            : [editedTask]
+        )
       } catch (error) {
         console.error(error)
+        return null
       }
     }
+    return null
   }
 
   const content = isEditing ? (
     <EditTaskFormCard
       task={task}
       setIsEditing={setIsEditing}
-      setNeedsReload={setNeedsReload}
+      setTasks={setTasks}
     />
   ) : (
     <BaseTaskCard
@@ -59,7 +74,7 @@ export default function TaskCard({ task, setNeedsReload }: TaskCardProps) {
       handleEditButtonClick={handleEditButtonClick}
       handleDeleteButtonClick={handleDeleteButtonClick}
       handleStatusChange={handleStatusChange}
-      setNeedsReload={setNeedsReload}
+      setTasks={setTasks}
     />
   )
 

@@ -7,20 +7,20 @@ import EditTaskForm from "../../../forms/EditTaskForm"
 interface EditTaskFormCardProps {
   task: TaskType
   setIsEditing: Dispatch<SetStateAction<boolean>>
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setTasks: Dispatch<SetStateAction<TaskType[] | null>>
 }
 
 export default function EditTaskFormCard({
   task,
   setIsEditing,
-  setNeedsReload,
+  setTasks,
 }: EditTaskFormCardProps) {
   return (
     <div className="card mb-3 p-3">
       <EditTaskForm
         task={task}
         setIsEditing={setIsEditing}
-        setNeedsReload={setNeedsReload}
+        setTasks={setTasks}
       />
     </div>
   )

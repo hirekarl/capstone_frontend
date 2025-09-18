@@ -16,15 +16,15 @@ export default function ProjectDetailPage() {
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
   const navigate = useNavigate()
 
-  const [projectName, setProjectName] = useState<string | null>(null)
-
   useEffect(() => {
     if (!isAuthenticated || projectId === null) {
       navigate("/login")
     }
   }, [isAuthenticated, projectId, navigate])
 
+  const [projectName, setProjectName] = useState<string | null>(null)
   const [userData] = useLocalStorage()
+
   const token = userData?.token
 
   useEffect(() => {
@@ -46,8 +46,6 @@ export default function ProjectDetailPage() {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
-  const [needsReload, setNeedsReload] = useState<boolean>(false)
-
   useEffect(() => {
     const fetchTasks = async () => {
       setLoading(true)
@@ -67,7 +65,7 @@ export default function ProjectDetailPage() {
     if (isAuthenticated) {
       fetchTasks()
     }
-  }, [isAuthenticated, token, needsReload, projectId])
+  }, [isAuthenticated, token, projectId])
 
   return (
     <>
@@ -76,17 +74,14 @@ export default function ProjectDetailPage() {
         <div className="row">
           <div className="col-xs-12 col-lg-6 mb-3 mb-lg-0">
             <h2 className="mb-3">Add New Task</h2>
-            <NewTaskForm
-              projectId={projectId as string}
-              setNeedsReload={setNeedsReload}
-            />
+            <NewTaskForm projectId={projectId as string} setTasks={setTasks} />
           </div>
           <div className="col-xs-12 col-lg-6">
             <h2 className="mb-3">Existing Tasks</h2>
             {loading && <p>Loading tasks...</p>}
             {error && <p>Error: {error}</p>}
             {!loading && !error && tasks && (
-              <TasksList tasks={tasks} setNeedsReload={setNeedsReload} />
+              <TasksList tasks={tasks} setTasks={setTasks} />
             )}
           </div>
         </div>

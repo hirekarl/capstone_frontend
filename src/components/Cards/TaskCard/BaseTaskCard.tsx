@@ -9,7 +9,7 @@ interface BaseTaskCardProps {
   handleEditButtonClick: () => void
   handleDeleteButtonClick: () => void
   handleStatusChange: (newStatus: TaskStatusType) => void
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setTasks: Dispatch<SetStateAction<TaskType[] | null>>
 }
 
 export default function BaseTaskCard({
@@ -17,7 +17,6 @@ export default function BaseTaskCard({
   handleEditButtonClick,
   handleDeleteButtonClick,
   handleStatusChange,
-  setNeedsReload,
 }: BaseTaskCardProps) {
   return (
     <div className="card mb-3">
@@ -31,7 +30,6 @@ export default function BaseTaskCard({
         handleEditButtonClick={handleEditButtonClick}
         handleDeleteButtonClick={handleDeleteButtonClick}
         handleStatusChange={handleStatusChange}
-        setNeedsReload={setNeedsReload}
       />
     </div>
   )

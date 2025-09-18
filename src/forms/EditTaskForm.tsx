@@ -16,13 +16,13 @@ import { editTask } from "../api/apiController"
 interface EditTaskFormProps {
   task: TaskType
   setIsEditing: Dispatch<SetStateAction<boolean>>
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setTasks: Dispatch<SetStateAction<TaskType[] | null>>
 }
 
 export default function EditTaskForm({
   task,
   setIsEditing,
-  setNeedsReload,
+  setTasks,
 }: EditTaskFormProps) {
   const [userData] = useLocalStorage()
   const token = userData?.token
@@ -63,9 +63,20 @@ export default function EditTaskForm({
 
     if (titleIsValid && descriptionIsValid && token) {
       try {
-        await editTask(token, task.project, task._id, taskFormData)
+        const editedTask = await editTask(
+          token,
+          task.project,
+          task._id,
+          taskFormData
+        )
         setIsEditing(false)
-        setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+        setTasks((prevTasks) =>
+          prevTasks
+            ? prevTasks.map((task) =>
+                task._id === editedTask._id ? editedTask : task
+              )
+            : [editedTask]
+        )
       } catch (error) {
         console.error(error)
       }

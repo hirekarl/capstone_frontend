@@ -7,7 +7,7 @@ import {
   type ChangeEvent,
 } from "react"
 
-import type { TaskFormDataType } from "../types"
+import type { TaskType, TaskFormDataType } from "../types"
 
 import { useLocalStorage } from "../hooks/useLocalStorage"
 
@@ -15,13 +15,10 @@ import { createNewTask } from "../api/apiController"
 
 interface NewTaskFormProps {
   projectId: string
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setTasks: Dispatch<SetStateAction<TaskType[] | null>>
 }
 
-export default function NewTaskForm({
-  projectId,
-  setNeedsReload,
-}: NewTaskFormProps) {
+export default function NewTaskForm({ projectId, setTasks }: NewTaskFormProps) {
   const [userData] = useLocalStorage()
   const token = userData?.token
 
@@ -61,14 +58,16 @@ export default function NewTaskForm({
 
     if (titleIsValid && descriptionIsValid && token) {
       try {
-        await createNewTask(token, projectId, taskFormData)
+        const newTask = await createNewTask(token, projectId, taskFormData)
+        setTasks((prevTasks) =>
+          prevTasks ? [...prevTasks, newTask] : [newTask]
+        )
         setTaskFormData({
           title: "",
           description: "",
           status: "To Do",
         })
         setIsDirty(false)
-        setNeedsReload((prevNeedsReload) => !prevNeedsReload)
       } catch (error) {
         console.error(error)
       }

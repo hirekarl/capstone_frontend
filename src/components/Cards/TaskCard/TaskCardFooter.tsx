@@ -1,9 +1,4 @@
-import {
-  useState,
-  type ChangeEvent,
-  type Dispatch,
-  type SetStateAction,
-} from "react"
+import { useState, type ChangeEvent } from "react"
 
 import EditButton from "../CardButtons/EditButton"
 import DeleteButton from "../CardButtons/DeleteButton"
@@ -14,7 +9,6 @@ interface TaskCardFooterProps {
   handleEditButtonClick: () => void
   handleDeleteButtonClick: () => void
   handleStatusChange: (newStatus: TaskStatusType) => void
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
 }
 
 export default function ProjectCardFooter({
@@ -22,14 +16,12 @@ export default function ProjectCardFooter({
   handleEditButtonClick,
   handleDeleteButtonClick,
   handleStatusChange,
-  setNeedsReload,
 }: TaskCardFooterProps) {
   const [status, setStatus] = useState<TaskStatusType>(task.status)
 
   const handleChange = async (event: ChangeEvent<HTMLSelectElement>) => {
     setStatus(event.target.value as TaskStatusType)
-    await handleStatusChange(event.target.value as TaskStatusType)
-    setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+    handleStatusChange(event.target.value as TaskStatusType)
   }
 
   return (
