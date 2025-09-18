@@ -59,17 +59,21 @@ export default function NewTaskForm({ projectId, setTasks }: NewTaskFormProps) {
     if (titleIsValid && descriptionIsValid && token) {
       try {
         const newTask = await createNewTask(token, projectId, taskFormData)
-        setTasks((prevTasks) =>
-          prevTasks ? [...prevTasks, newTask] : [newTask]
-        )
-        setTaskFormData({
-          title: "",
-          description: "",
-          status: "To Do",
-        })
-        setIsDirty(false)
+        if (newTask) {
+          setTasks((prevTasks) =>
+            prevTasks ? [...prevTasks, newTask] : [newTask]
+          )
+          setTaskFormData({
+            title: "",
+            description: "",
+            status: "To Do",
+          })
+          setIsDirty(false)
+        } else {
+          throw new Error("Couldn't create task.")
+        }
       } catch (error) {
-        console.error(error)
+        console.error(String(error))
       }
     }
   }

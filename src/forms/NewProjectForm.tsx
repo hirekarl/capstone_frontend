@@ -55,16 +55,20 @@ export default function NewProjectForm({ setProjects }: NewProjectFormProps) {
     if (nameIsValid && descriptionIsValid && token) {
       try {
         const newProject = await createNewProject(token, newProjectFormData)
-        setProjects((prevProjects) =>
-          prevProjects ? [...prevProjects, newProject] : [newProject]
-        )
-        setNewProjectFormData({
-          name: "",
-          description: "",
-        })
-        setIsDirty(false)
+        if (newProject) {
+          setProjects((prevProjects) =>
+            prevProjects ? [...prevProjects, newProject] : [newProject]
+          )
+          setNewProjectFormData({
+            name: "",
+            description: "",
+          })
+          setIsDirty(false)
+        } else {
+          throw new Error("Couldn't create project.")
+        }
       } catch (error) {
-        console.error(error)
+        console.error(String(error))
       }
     }
   }

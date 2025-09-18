@@ -30,13 +30,17 @@ export default function TaskCard({ task, setTasks }: TaskCardProps) {
     if (token) {
       try {
         const deletedTask = await deleteTask(token, projectId, taskId)
-        setTasks((prevTasks) =>
-          prevTasks
-            ? prevTasks.filter((task) => task._id !== deletedTask._id)
-            : null
-        )
+        if (deletedTask) {
+          setTasks((prevTasks) =>
+            prevTasks
+              ? prevTasks.filter((task) => task._id !== deletedTask._id)
+              : null
+          )
+        } else {
+          throw new Error("Couldn't delete task.")
+        }
       } catch (error) {
-        console.error(error)
+        console.error(String(error))
       }
     }
   }
@@ -47,15 +51,19 @@ export default function TaskCard({ task, setTasks }: TaskCardProps) {
         const editedTask = await editTask(token, projectId, taskId, {
           status: newStatus,
         })
-        setTasks((prevTasks) =>
-          prevTasks
-            ? prevTasks.map((task) =>
-                task._id === editedTask._id ? editedTask : task
-              )
-            : [editedTask]
-        )
+        if (editedTask) {
+          setTasks((prevTasks) =>
+            prevTasks
+              ? prevTasks.map((task) =>
+                  task._id === editedTask._id ? editedTask : task
+                )
+              : [editedTask]
+          )
+        } else {
+          throw new Error("Couldn't edit task.")
+        }
       } catch (error) {
-        console.error(error)
+        console.error(String(error))
         return null
       }
     }

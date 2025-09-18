@@ -69,16 +69,20 @@ export default function EditTaskForm({
           task._id,
           taskFormData
         )
-        setIsEditing(false)
-        setTasks((prevTasks) =>
-          prevTasks
-            ? prevTasks.map((task) =>
-                task._id === editedTask._id ? editedTask : task
-              )
-            : [editedTask]
-        )
+        if (editedTask) {
+          setIsEditing(false)
+          setTasks((prevTasks) =>
+            prevTasks
+              ? prevTasks.map((task) =>
+                  task._id === editedTask._id ? editedTask : task
+                )
+              : [editedTask]
+          )
+        } else {
+          throw new Error("Couldn't edit task.")
+        }
       } catch (error) {
-        console.error(error)
+        console.error(String(error))
       }
     }
   }
