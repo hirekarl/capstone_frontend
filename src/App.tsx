@@ -26,7 +26,7 @@ function App() {
               element={<ProjectDetailPage />}
             />
             <Route path="/404" element={<NotFoundPage />} />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
         </div>
         <Footer />
