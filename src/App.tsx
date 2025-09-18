@@ -24,6 +24,7 @@ function App() {
               path="/projects/:projectId"
               element={<ProjectDetailPage />}
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
         <Footer />
