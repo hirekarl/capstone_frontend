@@ -11,6 +11,7 @@ import { type ProjectType, type TaskType } from "../types"
 import { getProject, getProjectTasks } from "../api/apiController"
 
 import TasksList from "../components/TasksList"
+import NotFoundPage from "./NotFoundPage"
 
 const isValidProjectId = (projectId: string) => {
   return /^[0-9a-fA-F]{24}$/.test(projectId)
@@ -19,12 +20,15 @@ const isValidProjectId = (projectId: string) => {
 export default function ProjectDetailPage() {
   const { projectId } = useParams()
   const navigate = useNavigate()
-
-  if (projectId && !isValidProjectId(projectId)) {
-    navigate("/404")
-  }
+  const [userData] = useLocalStorage()
 
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
+
+  const [projectName, setProjectName] = useState<string | null>(null)
+  const [tasks, setTasks] = useState<TaskType[] | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  const [isProjectNotFound, setIsProjectNotFound] = useState<boolean>(false)
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -32,40 +36,44 @@ export default function ProjectDetailPage() {
     }
   }, [isAuthenticated, navigate])
 
-  const [projectName, setProjectName] = useState<string | null>(null)
-  const [userData] = useLocalStorage()
-
-  const token = userData?.token
-
-  const [tasks, setTasks] = useState<TaskType[] | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
-
   useEffect(() => {
     const fetchProject = async () => {
-      if (token && projectId) {
+      if (projectId && !isValidProjectId(projectId)) {
+        setIsProjectNotFound(true)
+        return
+      }
+
+      if (userData?.token && projectId) {
         try {
-          const project: ProjectType | null = await getProject(token, projectId)
+          const project: ProjectType | null = await getProject(
+            userData.token,
+            projectId
+          )
           if (project) {
             setProjectName(project.name)
           } else {
-            throw new Error("Couldn't fetch project.")
+            setIsProjectNotFound(true)
           }
         } catch (error) {
           setError(String(error))
         }
+      } else {
+        setIsProjectNotFound(true)
       }
     }
 
     fetchProject()
-  }, [projectId, token])
+  }, [projectId, userData?.token])
 
   useEffect(() => {
     const fetchTasks = async () => {
       setLoading(true)
       try {
-        if (token) {
-          const fetchedTasks = await getProjectTasks(token, projectId as string)
+        if (userData?.token && projectId) {
+          const fetchedTasks = await getProjectTasks(
+            userData.token,
+            projectId as string
+          )
           setTasks(fetchedTasks)
         }
       } catch (error) {
@@ -79,7 +87,11 @@ export default function ProjectDetailPage() {
     if (isAuthenticated) {
       fetchTasks()
     }
-  }, [isAuthenticated, token, projectId])
+  }, [isAuthenticated, userData?.token, projectId])
+
+  if (isProjectNotFound) {
+    return <NotFoundPage />
+  }
 
   return (
     <>
