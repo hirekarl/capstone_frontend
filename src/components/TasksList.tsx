@@ -1,7 +1,8 @@
-import TaskCard from "./Cards/TaskCard/TaskCard"
+import type { Dispatch, SetStateAction } from "react"
 
 import type { TaskType } from "../types"
-import type { Dispatch, SetStateAction } from "react"
+
+import TaskCard from "./Cards/TaskCard/TaskCard"
 
 export interface TasksListProps {
   tasks: TaskType[]

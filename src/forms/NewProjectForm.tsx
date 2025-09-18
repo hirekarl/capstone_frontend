@@ -6,13 +6,13 @@ import {
   type FormEvent,
 } from "react"
 
-import type { ProjectFormDataType, ProjectType } from "../types"
-
 import { useLocalStorage } from "../hooks/useLocalStorage"
+
+import type { ProjectFormDataType, ProjectType } from "../types"
 
 import { createNewProject } from "../api/apiController"
 
-export interface NewProjectFormProps {
+interface NewProjectFormProps {
   setProjects: Dispatch<SetStateAction<ProjectType[] | null>>
 }
 

@@ -1,15 +1,16 @@
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { useLocalStorage } from "../hooks/useLocalStorage"
-import { getAllProjects } from "../api/apiController"
-
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 
-import NewProjectForm from "../forms/NewProjectForm"
+import { useLocalStorage } from "../hooks/useLocalStorage"
+
 import { type ProjectType } from "../types"
 
+import NewProjectForm from "../forms/NewProjectForm"
 import ProjectsList from "../components/ProjectsList"
+
+import { getAllProjects } from "../api/apiController"
 
 export default function ProjectsPage() {
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
@@ -65,10 +66,7 @@ export default function ProjectsPage() {
             {loading && <p>Loading projects...</p>}
             {error && <p>Error: {error}</p>}
             {!loading && !error && projects && (
-              <ProjectsList
-                projects={projects}
-                setProjects={setProjects}
-              />
+              <ProjectsList projects={projects} setProjects={setProjects} />
             )}
           </div>
         </div>

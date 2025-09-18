@@ -3,11 +3,11 @@ import { Navigate, Routes, Route } from "react-router-dom"
 import AuthContextProvider from "./contexts/AuthContextProvider"
 
 import NavBar from "./components/NavBar"
+import LoginPage from "./pages/LoginPage"
+import RegisterPage from "./pages/RegisterPage"
 import ProjectsPage from "./pages/ProjectsPage"
 import ProjectDetailPage from "./pages/ProjectDetailPage"
-import LoginPage from "./pages/LoginPage"
 import Footer from "./components/Footer"
-import RegisterPage from "./pages/RegisterPage"
 
 function App() {
   return (

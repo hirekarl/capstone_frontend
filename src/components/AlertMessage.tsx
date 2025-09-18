@@ -1,4 +1,4 @@
-import { type AlertMessageType } from "../types"
+import type { AlertMessageType } from "../types"
 
 export default function AlertMessage({ type, message }: AlertMessageType) {
   return (

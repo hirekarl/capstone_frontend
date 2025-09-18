@@ -7,9 +7,9 @@ import {
   type ChangeEvent,
 } from "react"
 
-import type { TaskType, TaskFormDataType } from "../types"
-
 import { useLocalStorage } from "../hooks/useLocalStorage"
+
+import type { TaskType, TaskFormDataType } from "../types"
 
 import { createNewTask } from "../api/apiController"
 

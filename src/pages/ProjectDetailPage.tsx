@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
-import { useLocalStorage } from "../hooks/useLocalStorage"
-import { getProject, getProjectTasks } from "../api/apiController"
-
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
+
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 import NewTaskForm from "../forms/NewTaskForm"
 import { type ProjectType, type TaskType } from "../types"
+
+import { getProject, getProjectTasks } from "../api/apiController"
 
 import TasksList from "../components/TasksList"
 

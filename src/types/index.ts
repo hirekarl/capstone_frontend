@@ -11,11 +11,6 @@ export interface ProjectType {
   owner: string
 }
 
-export interface ProjectFormDataType {
-  name: string
-  description: string
-}
-
 export type TaskStatusType = "To Do" | "In Progress" | "Done"
 
 export interface TaskType {
@@ -24,19 +19,6 @@ export interface TaskType {
   description: string
   status: TaskStatusType
   project: string
-}
-
-export interface TaskFormDataType {
-  title: string
-  description: string
-  status?: TaskStatusType
-}
-
-export type TokenType = string
-
-export interface AuthResponseType {
-  user: UserType
-  token: TokenType
 }
 
 export interface UserLoginFormDataType {
@@ -49,6 +31,24 @@ export interface UserRegisterFormDataType {
   email: string
   password: string
   passwordConfirm: string
+}
+
+export type TokenType = string
+
+export interface AuthResponseType {
+  user: UserType
+  token: TokenType
+}
+
+export interface ProjectFormDataType {
+  name: string
+  description: string
+}
+
+export interface TaskFormDataType {
+  title: string
+  description: string
+  status?: TaskStatusType
 }
 
 export interface AlertMessageType {

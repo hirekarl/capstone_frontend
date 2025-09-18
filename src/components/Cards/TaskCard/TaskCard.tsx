@@ -1,13 +1,13 @@
 import { useState, type Dispatch, type SetStateAction } from "react"
 
-import { type TaskStatusType, type TaskType } from "../../../types"
-
 import { useLocalStorage } from "../../../hooks/useLocalStorage"
 
-import { editTask, deleteTask } from "../../../api/apiController"
+import type { TaskStatusType, TaskType } from "../../../types"
 
 import BaseTaskCard from "./BaseTaskCard"
 import EditTaskFormCard from "./EditTaskFormCard"
+
+import { editTask, deleteTask } from "../../../api/apiController"
 
 interface TaskCardProps {
   task: TaskType

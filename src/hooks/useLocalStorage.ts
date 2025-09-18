@@ -1,7 +1,8 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react"
+
 import type { AuthResponseType } from "../types"
 
-const LOCAL_STORAGE_KEY = "userData"
+import { LOCAL_STORAGE_KEY } from "../utils"
 
 export const useLocalStorage = (): [
   AuthResponseType | null,

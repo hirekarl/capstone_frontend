@@ -1,8 +1,9 @@
 import { useState, type ChangeEvent } from "react"
 
+import type { TaskStatusType, TaskType } from "../../../types"
+
 import EditButton from "../CardButtons/EditButton"
 import DeleteButton from "../CardButtons/DeleteButton"
-import type { TaskStatusType, TaskType } from "../../../types"
 
 interface TaskCardFooterProps {
   task: TaskType

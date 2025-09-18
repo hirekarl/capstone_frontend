@@ -1,7 +1,8 @@
-import ProjectCard from "./Cards/ProjectCard/ProjectCard"
+import type { Dispatch, SetStateAction } from "react"
 
 import type { ProjectType } from "../types"
-import type { Dispatch, SetStateAction } from "react"
+
+import ProjectCard from "./Cards/ProjectCard/ProjectCard"
 
 export interface ProjectsListProps {
   projects: ProjectType[]

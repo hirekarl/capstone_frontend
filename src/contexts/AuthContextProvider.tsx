@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import axios, { type AxiosResponse } from "axios"
 
 import { AuthContext } from "./AuthContext"
+
 import { useLocalStorage } from "../hooks/useLocalStorage"
 
 import type {
@@ -130,7 +131,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     validateToken()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

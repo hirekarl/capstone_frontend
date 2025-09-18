@@ -1,8 +1,7 @@
 import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { AuthContext } from "../contexts/AuthContext"
-import type { AuthContextType } from "../contexts/AuthContext"
+import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 
 import AlertMessage from "../components/AlertMessage"
 import RegisterForm from "../forms/RegisterForm"

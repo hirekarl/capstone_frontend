@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { Link, NavLink } from "react-router-dom"
 
-import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
-
 import { useLocalStorage } from "../hooks/useLocalStorage"
+
+import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 
 const NavBar = () => {
   const { isAuthenticated, logout } = useContext<AuthContextType>(AuthContext)

@@ -1,14 +1,14 @@
 import { useState, type Dispatch, type SetStateAction } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { type ProjectType } from "../../../types"
-
 import { useLocalStorage } from "../../../hooks/useLocalStorage"
 
-import { deleteProject } from "../../../api/apiController"
+import type { ProjectType } from "../../../types"
 
 import BaseProjectCard from "./BaseProjectCard"
 import EditProjectFormCard from "./EditProjectFormCard"
+
+import { deleteProject } from "../../../api/apiController"
 
 interface ProjectCardProps {
   project: ProjectType

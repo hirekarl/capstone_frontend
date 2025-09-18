@@ -7,9 +7,9 @@ import {
   type FormEvent,
 } from "react"
 
-import type { ProjectType, ProjectFormDataType } from "../types"
-
 import { useLocalStorage } from "../hooks/useLocalStorage"
+
+import type { ProjectType, ProjectFormDataType } from "../types"
 
 import { editProject } from "../api/apiController"
 
