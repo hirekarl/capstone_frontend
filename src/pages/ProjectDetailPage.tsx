@@ -18,20 +18,19 @@ const isValidProjectId = (projectId: string) => {
 
 export default function ProjectDetailPage() {
   const { projectId } = useParams()
-  const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
   const navigate = useNavigate()
+
+  if (projectId && !isValidProjectId(projectId)) {
+    navigate("/404")
+  }
+
+  const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login")
     }
   }, [isAuthenticated, navigate])
-
-  useEffect(() => {
-    if (projectId && !isValidProjectId(projectId)) {
-      navigate("/404")
-    }
-  }, [projectId, navigate])
 
   const [projectName, setProjectName] = useState<string | null>(null)
   const [userData] = useLocalStorage()
