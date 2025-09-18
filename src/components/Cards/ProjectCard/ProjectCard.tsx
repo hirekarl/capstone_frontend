@@ -37,15 +37,19 @@ export default function ProjectCard({
     if (token) {
       try {
         const deletedProject = await deleteProject(token, projectId)
-        setProjects((prevProjects) =>
-          prevProjects
-            ? prevProjects.filter(
-                (project) => project._id !== deletedProject._id
-              )
-            : null
-        )
+        if (deletedProject) {
+          setProjects((prevProjects) =>
+            prevProjects
+              ? prevProjects.filter(
+                  (project) => project._id !== deletedProject._id
+                )
+              : null
+          )
+        } else {
+          throw new Error("Couldn't delete project.")
+        }
       } catch (error) {
-        console.error(error)
+        console.error(String(error))
       }
     }
   }

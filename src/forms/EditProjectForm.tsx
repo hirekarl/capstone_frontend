@@ -67,16 +67,20 @@ export default function EditProjectForm({
           projectId,
           projectFormData
         )
-        setIsEditing(false)
-        setProjects((prevProjects) =>
-          prevProjects
-            ? prevProjects.map((project) =>
-                project._id === editedProject._id ? editedProject : project
-              )
-            : [editedProject]
-        )
+        if (editedProject) {
+          setIsEditing(false)
+          setProjects((prevProjects) =>
+            prevProjects
+              ? prevProjects.map((project) =>
+                  project._id === editedProject._id ? editedProject : project
+                )
+              : [editedProject]
+          )
+        } else {
+          throw new Error("Couldn't edit project.")
+        }
       } catch (error) {
-        console.error(error)
+        console.error(String(error))
       }
     }
   }

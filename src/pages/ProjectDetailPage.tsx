@@ -27,24 +27,28 @@ export default function ProjectDetailPage() {
 
   const token = userData?.token
 
+  const [tasks, setTasks] = useState<TaskType[] | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+
   useEffect(() => {
     const fetchProject = async () => {
       if (token && projectId) {
         try {
-          const project: ProjectType = await getProject(token, projectId)
-          setProjectName(project.name)
+          const project: ProjectType | null = await getProject(token, projectId)
+          if (project) {
+            setProjectName(project.name)
+          } else {
+            throw new Error("Couldn't fetch project.")
+          }
         } catch (error) {
-          console.error(error)
+          setError(String(error))
         }
       }
     }
 
     fetchProject()
   }, [projectId, token])
-
-  const [tasks, setTasks] = useState<TaskType[] | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchTasks = async () => {
