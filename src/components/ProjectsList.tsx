@@ -4,7 +4,7 @@ import type { ProjectType } from "../types"
 
 import ProjectCard from "./Cards/ProjectCard/ProjectCard"
 
-export interface ProjectsListProps {
+interface ProjectsListProps {
   projects: ProjectType[]
   setProjects: Dispatch<SetStateAction<ProjectType[] | null>>
 }
@@ -13,7 +13,11 @@ export default function ProjectsList({
   projects,
   setProjects,
 }: ProjectsListProps) {
-  const projectCards = projects?.map((project) => (
+  const sortedProjects = [...projects].sort((a, b) => {
+    return a.name.localeCompare(b.name)
+  })
+
+  const projectCards = sortedProjects.map((project) => (
     <ProjectCard
       key={project._id}
       project={project}
