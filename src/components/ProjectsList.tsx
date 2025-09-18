@@ -5,18 +5,18 @@ import type { Dispatch, SetStateAction } from "react"
 
 export interface ProjectsListProps {
   projects: ProjectType[]
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setProjects: Dispatch<SetStateAction<ProjectType[] | null>>
 }
 
 export default function ProjectsList({
   projects,
-  setNeedsReload,
+  setProjects,
 }: ProjectsListProps) {
   const projectCards = projects?.map((project) => (
     <ProjectCard
       key={project._id}
       project={project}
-      setNeedsReload={setNeedsReload}
+      setProjects={setProjects}
     />
   ))
   return projectCards

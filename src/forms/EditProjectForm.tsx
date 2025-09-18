@@ -16,13 +16,13 @@ import { editProject } from "../api/apiController"
 interface EditProjectFormProps {
   project: ProjectType
   setIsEditing: Dispatch<SetStateAction<boolean>>
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setProjects: Dispatch<SetStateAction<ProjectType[] | null>>
 }
 
 export default function EditProjectForm({
   project,
   setIsEditing,
-  setNeedsReload,
+  setProjects,
 }: EditProjectFormProps) {
   const projectId = project._id
 
@@ -62,9 +62,19 @@ export default function EditProjectForm({
 
     if (nameIsValid && descriptionIsValid && token) {
       try {
-        await editProject(token, projectId, projectFormData)
+        const editedProject = await editProject(
+          token,
+          projectId,
+          projectFormData
+        )
         setIsEditing(false)
-        setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+        setProjects((prevProjects) =>
+          prevProjects
+            ? prevProjects.map((project) =>
+                project._id === editedProject._id ? editedProject : project
+              )
+            : [editedProject]
+        )
       } catch (error) {
         console.error(error)
       }

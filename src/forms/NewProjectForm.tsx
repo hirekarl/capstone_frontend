@@ -6,19 +6,17 @@ import {
   type FormEvent,
 } from "react"
 
-import type { ProjectFormDataType } from "../types"
+import type { ProjectFormDataType, ProjectType } from "../types"
 
 import { useLocalStorage } from "../hooks/useLocalStorage"
 
 import { createNewProject } from "../api/apiController"
 
 export interface NewProjectFormProps {
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setProjects: Dispatch<SetStateAction<ProjectType[] | null>>
 }
 
-export default function NewProjectForm({
-  setNeedsReload,
-}: NewProjectFormProps) {
+export default function NewProjectForm({ setProjects }: NewProjectFormProps) {
   const [userData] = useLocalStorage()
   const token = userData?.token
 
@@ -56,13 +54,15 @@ export default function NewProjectForm({
 
     if (nameIsValid && descriptionIsValid && token) {
       try {
-        await createNewProject(token, newProjectFormData)
+        const newProject = await createNewProject(token, newProjectFormData)
+        setProjects((prevProjects) =>
+          prevProjects ? [...prevProjects, newProject] : [newProject]
+        )
         setNewProjectFormData({
           name: "",
           description: "",
         })
         setIsDirty(false)
-        setNeedsReload((prevNeedsReload) => !prevNeedsReload)
       } catch (error) {
         console.error(error)
       }

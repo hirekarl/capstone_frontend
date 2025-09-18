@@ -28,7 +28,7 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
-  const [needsReload, setNeedsReload] = useState<boolean>(false)
+  // const [needsReload, setNeedsReload] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -49,7 +49,7 @@ export default function ProjectsPage() {
     if (isAuthenticated) {
       fetchProjects()
     }
-  }, [isAuthenticated, token, needsReload])
+  }, [isAuthenticated, token])
 
   return (
     <>
@@ -58,7 +58,7 @@ export default function ProjectsPage() {
         <div className="row">
           <div className="col-xs-12 col-lg-6 mb-3 mb-lg-0">
             <h2 className="mb-3">Add New Project</h2>
-            <NewProjectForm setNeedsReload={setNeedsReload} />
+            <NewProjectForm setProjects={setProjects} />
           </div>
           <div className="col-xs-12 col-lg-6">
             <h2 className="mb-3">Existing Projects</h2>
@@ -67,7 +67,7 @@ export default function ProjectsPage() {
             {!loading && !error && projects && (
               <ProjectsList
                 projects={projects}
-                setNeedsReload={setNeedsReload}
+                setProjects={setProjects}
               />
             )}
           </div>

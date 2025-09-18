@@ -12,12 +12,12 @@ import EditProjectFormCard from "./EditProjectFormCard"
 
 interface ProjectCardProps {
   project: ProjectType
-  setNeedsReload: Dispatch<SetStateAction<boolean>>
+  setProjects: Dispatch<SetStateAction<ProjectType[] | null>>
 }
 
 export default function ProjectCard({
   project,
-  setNeedsReload,
+  setProjects,
 }: ProjectCardProps) {
   const projectId = project._id
   const navigate = useNavigate()
@@ -35,8 +35,18 @@ export default function ProjectCard({
   }
   const handleDeleteButtonClick = async () => {
     if (token) {
-      await deleteProject(token, projectId)
-      setNeedsReload((prevNeedsReload) => !prevNeedsReload)
+      try {
+        const deletedProject = await deleteProject(token, projectId)
+        setProjects((prevProjects) =>
+          prevProjects
+            ? prevProjects.filter(
+                (project) => project._id !== deletedProject._id
+              )
+            : null
+        )
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 
@@ -44,7 +54,7 @@ export default function ProjectCard({
     <EditProjectFormCard
       project={project}
       setIsEditing={setIsEditing}
-      setNeedsReload={setNeedsReload}
+      setProjects={setProjects}
     />
   ) : (
     <BaseProjectCard
