@@ -1,5 +1,12 @@
 import axios from "axios"
-import type { ProjectFormDataType, TaskFormDataType } from "../types"
+
+import type {
+  ProjectType,
+  ProjectFormDataType,
+  TaskType,
+  TaskFormDataType,
+} from "../types"
+
 import { VITE_ENDPOINT_BASE_URL } from "../utils"
 
 const apiClient = axios.create({
@@ -9,98 +16,153 @@ const apiClient = axios.create({
   },
 })
 
-export const getAllProjects = async (token: string) => {
-  const response = await apiClient.get("projects", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return response.data
+export const getAllProjects = async (
+  token: string
+): Promise<ProjectType[] | null> => {
+  try {
+    const response = await apiClient.get("projects", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 export const createNewProject = async (
   token: string,
   projectFormData: ProjectFormDataType
-) => {
-  const response = await apiClient.post("projects", projectFormData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return response.data
+): Promise<ProjectType | null> => {
+  try {
+    const response = await apiClient.post("projects", projectFormData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
-export const getProject = async (token: string, projectId: string) => {
-  const response = await apiClient.get(`projects/${projectId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return response.data
+export const getProject = async (
+  token: string,
+  projectId: string
+): Promise<ProjectType | null> => {
+  try {
+    const response = await apiClient.get(`projects/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 export const editProject = async (
   token: string,
   projectId: string,
   updateData: object
-) => {
-  const response = await apiClient.patch(`projects/${projectId}`, updateData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return response.data
+): Promise<ProjectType | null> => {
+  try {
+    const response = await apiClient.patch(
+      `projects/${projectId}`,
+      updateData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
-export const deleteProject = async (token: string, projectId: string) => {
-  const response = await apiClient.delete(`projects/${projectId}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return response.data
+export const deleteProject = async (
+  token: string,
+  projectId: string
+): Promise<ProjectType | null> => {
+  try {
+    const response = await apiClient.delete(`projects/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
-export const getProjectTasks = async (token: string, projectId: string) => {
-  const response = await apiClient.get(`projects/${projectId}/tasks`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return response.data
+export const getProjectTasks = async (
+  token: string,
+  projectId: string
+): Promise<TaskType[] | null> => {
+  try {
+    const response = await apiClient.get(`projects/${projectId}/tasks`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 export const createNewTask = async (
   token: string,
   projectId: string,
   taskFormData: TaskFormDataType
-) => {
-  const response = await apiClient.post(
-    `projects/${projectId}/tasks`,
-    taskFormData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-  return response.data
+): Promise<TaskType | null> => {
+  try {
+    const response = await apiClient.post(
+      `projects/${projectId}/tasks`,
+      taskFormData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 export const getTask = async (
   token: string,
   projectId: string,
   taskId: string
-) => {
-  const response = await apiClient.get(
-    `projects/${projectId}/tasks/${taskId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-  return response.data
+): Promise<TaskType | null> => {
+  try {
+    const response = await apiClient.get(
+      `projects/${projectId}/tasks/${taskId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 export const editTask = async (
@@ -108,31 +170,41 @@ export const editTask = async (
   projectId: string,
   taskId: string,
   updateData: object
-) => {
-  const response = await apiClient.patch(
-    `projects/${projectId}/tasks/${taskId}`,
-    updateData,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-  return response.data
+): Promise<TaskType | null> => {
+  try {
+    const response = await apiClient.patch(
+      `projects/${projectId}/tasks/${taskId}`,
+      updateData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
 
 export const deleteTask = async (
   token: string,
   projectId: string,
   taskId: string
-) => {
-  const response = await apiClient.delete(
-    `projects/${projectId}/tasks/${taskId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-  return response.data
+): Promise<TaskType | null> => {
+  try {
+    const response = await apiClient.delete(
+      `projects/${projectId}/tasks/${taskId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    return response.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
