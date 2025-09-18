@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage"
 import ProjectsPage from "./pages/ProjectsPage"
 import ProjectDetailPage from "./pages/ProjectDetailPage"
 import Footer from "./components/Footer"
+import NotFoundPage from "./pages/NotFoundPage"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               path="/projects/:projectId"
               element={<ProjectDetailPage />}
             />
+            <Route path="/404" element={<NotFoundPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

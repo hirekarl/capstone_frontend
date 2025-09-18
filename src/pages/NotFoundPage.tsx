@@ -6,7 +6,7 @@ export default function NotFoundPage() {
       <h1>Uh-oh!</h1>
       <p>The resource you requested couldn't be found.</p>
       <p>
-        Why don't you go back to <Link to="/projects">projects</Link>?
+        Why don't you go back to <Link to="/projects">My Projects</Link>?
       </p>
     </div>
   )

@@ -12,16 +12,26 @@ import { getProject, getProjectTasks } from "../api/apiController"
 
 import TasksList from "../components/TasksList"
 
+const isValidProjectId = (projectId: string) => {
+  return /^[0-9a-fA-F]{24}$/.test(projectId)
+}
+
 export default function ProjectDetailPage() {
   const { projectId } = useParams()
   const { isAuthenticated } = useContext<AuthContextType>(AuthContext)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!isAuthenticated || projectId === null) {
+    if (!isAuthenticated) {
       navigate("/login")
     }
-  }, [isAuthenticated, projectId, navigate])
+  }, [isAuthenticated, navigate])
+
+  useEffect(() => {
+    if (projectId && !isValidProjectId(projectId)) {
+      navigate("/404")
+    }
+  }, [projectId, navigate])
 
   const [projectName, setProjectName] = useState<string | null>(null)
   const [userData] = useLocalStorage()
