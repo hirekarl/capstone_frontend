@@ -64,7 +64,7 @@ export default function ProjectsPage() {
           <div className="col-xs-12 col-lg-6">
             <h2 className="mb-3">Existing Projects</h2>
             {loading && <p>Loading projects...</p>}
-            {error && <p>Error: {error}</p>}
+            {error && <p className="text-danger">{error}</p>}
             {!loading && !error && projects && (
               <ProjectsList projects={projects} setProjects={setProjects} />
             )}

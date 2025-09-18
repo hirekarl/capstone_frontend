@@ -75,7 +75,7 @@ export default function ProjectDetailPage() {
   return (
     <>
       <div className="container-fluid mt-3">
-        <h1 className="mb-5">{projectName}</h1>
+        <h1 className="mb-5">Project: {projectName}</h1>
         <div className="row">
           <div className="col-xs-12 col-lg-6 mb-3 mb-lg-0">
             <h2 className="mb-3">Add New Task</h2>
@@ -84,7 +84,7 @@ export default function ProjectDetailPage() {
           <div className="col-xs-12 col-lg-6">
             <h2 className="mb-3">Existing Tasks</h2>
             {loading && <p>Loading tasks...</p>}
-            {error && <p>Error: {error}</p>}
+            {error && <p className="text-danger">{error}</p>}
             {!loading && !error && tasks && (
               <TasksList tasks={tasks} setTasks={setTasks} />
             )}
