@@ -4,10 +4,15 @@
 2025-RTT-30  
 <time datetime="2025-09-12">2025-09-12</time>  
 
-![Screenshot of Pro-Tasker's project detail page with two tasks added and one in the form.](./preview.png)
+![Screenshot of Pro-Tasker's project detail page with three tasks for the given project.](./preview.png)
 
 ## Overview
 
+**Deployed:**
+- Front-end: https://hirekarl-ps-capstone.netlify.app
+- Back-end: https://capstone-backend-byjq.onrender.com
 
-## Assignment
+**Source:**
+- Front-end: https://github.com/hirekarl/capstone_frontend
+- Back-end: https://github.com/hirekarl/capstone_backend
 
