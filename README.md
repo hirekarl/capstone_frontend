@@ -126,10 +126,7 @@ On successfull front-end server start, a message from [Vite](https://vite.dev/) 
 
 ## Hire Me
 
-<figure style="text-align: center;">
-  <img src="./headshot.jpg" width="150" height="150" style="border-radius: 50%; border: 5px solid #36454F; display: block; margin: 0 auto;" alt="Karl Johnson" />
-  <figcaption><strong>Karl Johnson</strong></figcaption>
-</figure>
+<img src="./headshot.jpg" width="150" height="150" alt="Karl Johnson" />
 
 In the market for a full-stack software engineer? [Drop me an email](mailto:hirekarl@proton.me?subject=Let%27s%20connect%21) or [give me a call](tel:+19174266565)&mdash;I'd love to speak to you!
 
