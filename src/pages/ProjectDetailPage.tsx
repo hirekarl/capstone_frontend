@@ -12,6 +12,7 @@ import { getProject, getProjectTasks } from "../api/apiController"
 
 import TasksList from "../components/TasksList"
 import NotFoundPage from "./NotFoundPage"
+import LoadingMessage from "../components/LoadingMessage"
 
 const isValidProjectId = (projectId: string) => {
   return /^[0-9a-fA-F]{24}$/.test(projectId)
@@ -96,7 +97,10 @@ export default function ProjectDetailPage() {
   return (
     <>
       <div className="container-fluid mt-3">
-        <h1 className="mb-5">Project: {projectName}</h1>
+        <h1 className="mb-5">
+          {loading && "Loading project name..."}
+          {!loading && `Project: ${projectName}`}
+        </h1>
         <div className="row">
           <div className="col-xs-12 col-lg-6 mb-3 mb-lg-0">
             <h2 className="mb-3">Add New Task</h2>
@@ -104,7 +108,7 @@ export default function ProjectDetailPage() {
           </div>
           <div className="col-xs-12 col-lg-6">
             <h2 className="mb-3">Existing Tasks</h2>
-            {loading && <p>Loading tasks...</p>}
+            {loading && <LoadingMessage component="tasks" />}
             {error && <p className="text-danger">{error}</p>}
             {!loading && !error && tasks && (
               <TasksList tasks={tasks} setTasks={setTasks} />

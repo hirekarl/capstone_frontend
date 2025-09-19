@@ -1,4 +1,10 @@
-import { useContext, useState, useEffect } from "react"
+import {
+  useContext,
+  useState,
+  useEffect,
+  type Dispatch,
+  type SetStateAction,
+} from "react"
 
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
 
@@ -6,7 +12,11 @@ import type { UserRegisterFormDataType } from "../types"
 
 import { emailRegEx } from "../utils"
 
-export default function RegisterForm() {
+interface RegisterFormProps {
+  setLoading: Dispatch<SetStateAction<boolean>>
+}
+
+export default function RegisterForm({ setLoading }: RegisterFormProps) {
   const { register } = useContext<AuthContextType>(AuthContext)
   const [userRegisterFormData, setUserRegisterFormData] =
     useState<UserRegisterFormDataType>({
@@ -58,6 +68,7 @@ export default function RegisterForm() {
         passwordConfirm: "",
       })
       setIsDirty(false)
+      setLoading(true)
     }
   }
 

@@ -9,6 +9,7 @@ import { type ProjectType } from "../types"
 
 import NewProjectForm from "../forms/NewProjectForm"
 import ProjectsList from "../components/ProjectsList"
+import LoadingMessage from "../components/LoadingMessage"
 
 import { getAllProjects } from "../api/apiController"
 
@@ -63,7 +64,7 @@ export default function ProjectsPage() {
           </div>
           <div className="col-xs-12 col-lg-6">
             <h2 className="mb-3">Existing Projects</h2>
-            {loading && <p>Loading projects...</p>}
+            {loading && <LoadingMessage component="projects" />}
             {error && <p className="text-danger">{error}</p>}
             {!loading && !error && projects && (
               <ProjectsList projects={projects} setProjects={setProjects} />

@@ -4,6 +4,8 @@ import {
   useEffect,
   type ChangeEvent,
   type FormEvent,
+  type Dispatch,
+  type SetStateAction,
 } from "react"
 
 import { AuthContext, type AuthContextType } from "../contexts/AuthContext"
@@ -12,12 +14,15 @@ import type { UserLoginFormDataType } from "../types"
 
 import { emailRegEx } from "../utils"
 
-export default function LoginForm() {
+interface LoginFormProps {
+  setLoading: Dispatch<SetStateAction<boolean>>
+}
+
+export default function LoginForm({ setLoading }: LoginFormProps) {
   const { login } = useContext<AuthContextType>(AuthContext)
 
   const [userLoginFormData, setUserLoginFormData] =
     useState<UserLoginFormDataType>({ email: "", password: "" })
-
   const [isDirty, setIsDirty] = useState<boolean>(false)
   const [emailIsValid, setEmailIsValid] = useState<boolean>(false)
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>(false)
@@ -46,6 +51,7 @@ export default function LoginForm() {
         password: "",
       })
       setIsDirty(false)
+      setLoading(true)
     }
   }
 
