@@ -128,6 +128,6 @@ On successfull front-end server start, a message from [Vite](https://vite.dev/) 
 
 <img src="./headshot.jpg" width="150" height="150" alt="Karl Johnson" />
 
-In the market for a full-stack software engineer? <a href="mailto:hirekarl@proton.me?subject=Let%27s%20connect%21">Drop me an email</a> or <a href="tel:+19174266565">give me a call</a>&mdash;I'd love to speak to you!
+In the market for a full-stack software engineer? <a href="mailto:hirekarl@proton.me?subject=Let%27s%20connect%21">Drop me an email</a>&mdash;I'd love to speak to you!
 
 You can also find me [on LinkedIn](https://www.linkedin.com/in/hirekarl/) and, soon, [on the web](https://www.fullstackkarl.com) (*currently under construction*).
