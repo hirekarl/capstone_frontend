@@ -4,7 +4,10 @@
 2025-RTT-30  
 <time datetime="2025-09-12">2025-09-12</time>  
 
+
 ![Screenshot of Pro-Tasker's project detail page with three tasks for the given project.](./preview.png)
+
+[*View the presentation on YouTube!*](https://www.youtube.com/watch?v=anQElWsUbOg)
 
 ## Overview
 ### Description
