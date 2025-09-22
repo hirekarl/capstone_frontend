@@ -30,8 +30,6 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
-  // const [needsReload, setNeedsReload] = useState<boolean>(false)
-
   useEffect(() => {
     const fetchProjects = async () => {
       setLoading(true)
